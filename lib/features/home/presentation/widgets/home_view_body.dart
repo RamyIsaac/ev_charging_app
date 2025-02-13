@@ -19,7 +19,6 @@ class HomeViewBody extends StatelessWidget {
                   'assets/images/Designer (1).jpeg',
                   height: 50,
                   width: 50,
-                  fit: BoxFit.cover,
                 ),
               ),
               const SizedBox(
@@ -29,11 +28,13 @@ class HomeViewBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'User name ',
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    'Ramy Isaac',
+                    style: TextStyle(
+                        fontFamily: 'Pacifico', fontWeight: FontWeight.bold),
                   ),
                   Text(
                     'find your nearest charging point ',
+                    style: TextStyle(color: Colors.grey),
                   ),
                 ],
               ),
@@ -42,6 +43,7 @@ class HomeViewBody extends StatelessWidget {
                 onPressed: () {},
                 icon: const Icon(
                   Icons.notifications,
+                  color: kSecondaryColor,
                   size: 24,
                 ),
               ),

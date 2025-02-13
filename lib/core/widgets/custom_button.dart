@@ -2,8 +2,9 @@ import 'package:ev_charging/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  const CustomButton({super.key, required this.text});
+  const CustomButton({super.key, required this.text, this.textColor});
   final String text;
+  final Color? textColor;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -16,7 +17,7 @@ class CustomButton extends StatelessWidget {
       child: Center(
           child: Text(
         text,
-        style: const TextStyle(fontSize: 20),
+        style: TextStyle(color: textColor, fontSize: 20),
       )),
     );
   }

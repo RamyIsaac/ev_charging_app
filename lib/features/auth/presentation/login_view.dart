@@ -27,124 +27,127 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return ModalProgressHUD(
       inAsyncCall: isLoading,
-      child: Scaffold(
-        backgroundColor: kPrimaryColor,
-        body: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Form(
-            key: formKey,
-            child: ListView(
-              physics: const BouncingScrollPhysics(),
-              children: [
-                Container(
-                  height: 400,
-                  width: double.maxFinite,
-                  decoration: BoxDecoration(
-                    image: const DecorationImage(
-                      image: AssetImage(
-                        'assets/images/Designer (1).jpeg',
+      child: SafeArea(
+        child: Scaffold(
+          //backgroundColor: kPrimaryColor,
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Form(
+              key: formKey,
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                children: [
+                  Container(
+                    height: 270,
+                    width: double.maxFinite,
+                    decoration: BoxDecoration(
+                      image: const DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage(
+                          'assets/images/Designer (1).jpeg',
+                        ),
                       ),
+                      borderRadius: BorderRadius.circular(50),
                     ),
-                    borderRadius: BorderRadius.circular(50),
                   ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                const Text(
-                  ' Sign In',
-                  style: TextStyle(
-                    fontSize: 24,
-                    color: kSecondaryColor,
+                  const SizedBox(
+                    height: 15,
                   ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                CustomTextFormField(
-                  onChanged: (data) {
-                    email = data;
-                  },
-                  label: 'Email',
-                  hint: 'Ex: namexxxxxx@gmail.com',
-                  preicon: const Icon(Icons.email_sharp),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                CustomTextFormField(
-                  onChanged: (data) {
-                    password = data;
-                  },
-                  suffIcon: IconButton(
-                    icon: Padding(
-                      padding: const EdgeInsets.only(right: 12),
-                      child: Icon(
-                        isObscure ? Icons.visibility : Icons.visibility_off,
-                        color: kSecondaryColor,
-                      ),
+                  const Text(
+                    ' Sign In',
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: kSecondaryColor,
                     ),
-                    onPressed: () {
-                      setState(() {
-                        isObscure = !isObscure;
-                      });
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  CustomTextFormField(
+                    onChanged: (data) {
+                      email = data;
                     },
+                    label: 'Email',
+                    hint: 'Ex: namexxxxxx@gmail.com',
+                    preicon: const Icon(Icons.email_sharp),
                   ),
-                  obsecureText: isObscure,
-                  label: 'Password',
-                  hint: 'make strong password',
-                  preicon: const Icon(Icons.password),
-                ),
-                const SizedBox(
-                  height: 80,
-                ),
-                CustomButton(
-                  onTap: () async {
-                    if (formKey.currentState!.validate()) {
-                      isLoading = true;
-                      setState(() {});
-                      try {
-                        await userSignIn();
-                        showSnackBar(context, 'Signed In Successfully');
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          showSnackBar(
-                              context, 'No user found for that email.');
-                        } else if (e.code == 'wrong-password') {
-                          showSnackBar(context,
-                              'Wrong password provided for that user.');
-                        }
-                      } catch (e) {
-                        showSnackBar(context,
-                            'there was an error, please try again later.');
-                      }
-                      isLoading = false;
-                      setState(() {});
-                    } else {}
-                  },
-                  text: 'Sign In',
-                ),
-                const SizedBox(
-                  height: 15,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Text('don\'t have an account? '),
-                    GestureDetector(
-                      onTap: () {
-                        GoRouter.of(context).push(AppRouter.kSignupView);
-                      },
-                      child: const Text(
-                        ' Sign Up',
-                        style: TextStyle(
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  CustomTextFormField(
+                    onChanged: (data) {
+                      password = data;
+                    },
+                    suffIcon: IconButton(
+                      icon: Padding(
+                        padding: const EdgeInsets.only(right: 12),
+                        child: Icon(
+                          isObscure ? Icons.visibility : Icons.visibility_off,
                           color: kSecondaryColor,
                         ),
                       ),
-                    )
-                  ],
-                ),
-              ],
+                      onPressed: () {
+                        setState(() {
+                          isObscure = !isObscure;
+                        });
+                      },
+                    ),
+                    obsecureText: isObscure,
+                    label: 'Password',
+                    hint: 'make strong password',
+                    preicon: const Icon(Icons.password),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  CustomButton(
+                    onTap: () async {
+                      if (formKey.currentState!.validate()) {
+                        isLoading = true;
+                        setState(() {});
+                        try {
+                          await userSignIn();
+                          showSnackBar(context, 'Signed In Successfully');
+                        } on FirebaseAuthException catch (e) {
+                          if (e.code == 'user-not-found') {
+                            showSnackBar(
+                                context, 'No user found for that email.');
+                          } else if (e.code == 'wrong-password') {
+                            showSnackBar(context,
+                                'Wrong password provided for that user.');
+                          }
+                        } catch (e) {
+                          showSnackBar(context,
+                              'there was an error, please try again later.');
+                        }
+                        isLoading = false;
+                        setState(() {});
+                      } else {}
+                    },
+                    text: 'Sign In',
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text('don\'t have an account? '),
+                      GestureDetector(
+                        onTap: () {
+                          GoRouter.of(context).push(AppRouter.kSignupView);
+                        },
+                        child: const Text(
+                          ' Sign Up',
+                          style: TextStyle(
+                            color: kSecondaryColor,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),
