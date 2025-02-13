@@ -1,7 +1,6 @@
 import 'package:ev_charging/constants.dart';
-import 'package:ev_charging/core/utils/app_router.dart';
+import 'package:ev_charging/core/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class HomeViewBody extends StatelessWidget {
   const HomeViewBody({super.key});
@@ -49,7 +48,38 @@ class HomeViewBody extends StatelessWidget {
             ],
           ),
         ),
-        const Spacer(),
+        // const Spacer(),
+        Padding(
+          padding: const EdgeInsets.only(top: 20),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.8,
+                child: const CustomTextField(
+                  preIcon: Icon(Icons.search),
+                  label: 'Search',
+                  hintText: 'search location',
+                ),
+              ),
+              //   child: SearchBar(
+              //     leading: Icon(
+              //       Icons.search,
+              //       size: 24,
+              //     ),
+              //   ),
+              // ),
+              SizedBox(
+                width: MediaQuery.of(context).size.width * 0.1,
+                child: IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.filter_list_rounded),
+                  color: kSecondaryColor,
+                ),
+              )
+            ],
+          ),
+        )
       ],
     );
   }

@@ -1,5 +1,8 @@
 import 'package:ev_charging/constants.dart';
+import 'package:ev_charging/features/enRoute/presentation/en_route_view.dart';
+import 'package:ev_charging/features/favourite/presentation/favourite_view.dart';
 import 'package:ev_charging/features/home/presentation/widgets/home_view_body.dart';
+import 'package:ev_charging/features/profile/presentation/profile_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {
@@ -12,10 +15,17 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   int selectedIndex = 0;
 
+  List<Widget> views = [
+    const HomeViewBody(),
+    const EnRouteView(),
+    const FavouriteView(),
+    const ProfileView(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const SafeArea(child: HomeViewBody()),
+      body: SafeArea(child: views.elementAt(selectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: kSecondaryColor,
         unselectedItemColor: Colors.grey,
