@@ -31,9 +31,15 @@ class ProfileViewBody extends StatelessWidget {
         ),
         const Center(
           child: Text(
-            'Name of user',
-            style: TextStyle(fontWeight: FontWeight.bold),
+            'Ramy Isaac',
+            style: TextStyle(
+                fontSize: 24,
+                fontFamily: 'Pacifico',
+                fontWeight: FontWeight.bold),
           ),
+        ),
+        const SizedBox(
+          height: 5,
         ),
         const Center(
             child: Text('+2012000009', style: TextStyle(color: Colors.grey))),
