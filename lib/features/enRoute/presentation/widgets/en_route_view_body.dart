@@ -15,7 +15,7 @@ class EnRouteViewBody extends StatelessWidget {
             Image.asset(
               'assets/images/charging_cars.webp',
               fit: BoxFit.cover,
-              height: MediaQuery.of(context).size.height * 0.35,
+              height: MediaQuery.of(context).size.height * 0.39,
               width: double.infinity,
             ),
             const Row(

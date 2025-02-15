@@ -4,6 +4,7 @@ import 'package:ev_charging/features/enRoute/presentation/en_route_view.dart';
 import 'package:ev_charging/features/favourite/presentation/favourite_view.dart';
 import 'package:ev_charging/features/home/presentation/home_view.dart';
 import 'package:ev_charging/features/profile/presentation/edit_profile_view.dart';
+import 'package:ev_charging/features/profile/presentation/my_booking_view.dart';
 import 'package:ev_charging/features/profile/presentation/profile_view.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,6 +15,8 @@ abstract class AppRouter {
   static const kFavouriteView = '/homeView/favouriteView';
   static const kEnRoteView = '/homeView/enRouteView';
   static const kEditProfileView = '/homeView/profileView/editProfileView';
+  static const kMyBokingsView = '/homeView/profileView/myBookingView';
+
   static final router = GoRouter(
     routes: [
       GoRoute(
@@ -43,6 +46,10 @@ abstract class AppRouter {
       GoRoute(
         path: kEditProfileView,
         builder: (context, state) => const EditProfileView(),
+      ),
+      GoRoute(
+        path: kMyBokingsView,
+        builder: (context, state) => const MyBookingView(),
       ),
     ],
   );

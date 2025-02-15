@@ -55,34 +55,36 @@ class ProfileViewBody extends StatelessWidget {
           sufIcon: const Icon(Icons.arrow_forward_ios_outlined),
         ),
         ProfileItem(
-          onTap: () {},
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.kMyBokingsView);
+          },
           icon: Icons.electric_bolt_outlined,
           title: 'My bookings',
-          sufIcon: Icon(Icons.arrow_forward_ios_outlined),
+          sufIcon: const Icon(Icons.arrow_forward_ios_outlined),
         ),
         ProfileItem(
           onTap: () {},
           icon: Icons.language_outlined,
           title: 'language',
-          sufIcon: Icon(Icons.arrow_forward_ios_outlined),
+          sufIcon: const Icon(Icons.arrow_forward_ios_outlined),
         ),
         ProfileItem(
           onTap: () {},
           icon: Icons.fact_check_outlined,
           title: 'Terms & Conditions',
-          sufIcon: Icon(Icons.arrow_forward_ios_outlined),
+          sufIcon: const Icon(Icons.arrow_forward_ios_outlined),
         ),
         ProfileItem(
           onTap: () {},
           icon: Icons.question_mark_sharp,
           title: 'FAQs',
-          sufIcon: Icon(Icons.arrow_forward_ios_outlined),
+          sufIcon: const Icon(Icons.arrow_forward_ios_outlined),
         ),
         ProfileItem(
           onTap: () {},
           icon: Icons.privacy_tip_outlined,
           title: 'privacy policy',
-          sufIcon: Icon(Icons.arrow_forward_ios_outlined),
+          sufIcon: const Icon(Icons.arrow_forward_ios_outlined),
         ),
         ProfileItem(
           onTap: () {},
