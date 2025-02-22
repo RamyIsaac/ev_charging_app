@@ -1,3 +1,4 @@
+import 'package:ev_charging/constants.dart';
 import 'package:flutter/material.dart';
 
 class MyBookingViewBody extends StatelessWidget {
@@ -8,6 +9,9 @@ class MyBookingViewBody extends StatelessWidget {
     return const Column(
       children: [
         TabBar(
+          indicatorColor: kSecondaryColor,
+          labelColor: kSecondaryColor,
+          dividerHeight: 0.25,
           tabs: [
             Tab(text: 'Ongoing booking'),
             Tab(text: 'Booking history'),

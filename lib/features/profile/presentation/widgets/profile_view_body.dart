@@ -1,4 +1,5 @@
 import 'package:ev_charging/core/utils/app_router.dart';
+import 'package:ev_charging/features/profile/presentation/FAQS_view.dart';
 import 'package:ev_charging/features/profile/presentation/widgets/profile_item.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -22,9 +23,11 @@ class ProfileViewBody extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const CircleAvatar(
-          backgroundImage: AssetImage('assets/images/Designer (1).jpeg'),
-          radius: 50,
+        const ClipRRect(
+          child: CircleAvatar(
+            backgroundImage: AssetImage('assets/images/Designer (1).jpeg'),
+            radius: 40,
+          ),
         ),
         const SizedBox(
           height: 10,
@@ -42,7 +45,8 @@ class ProfileViewBody extends StatelessWidget {
           height: 5,
         ),
         const Center(
-            child: Text('+2012000009', style: TextStyle(color: Colors.grey))),
+            child:
+                Text('+20 1205301271', style: TextStyle(color: Colors.grey))),
         const SizedBox(
           height: 20,
         ),
@@ -69,19 +73,25 @@ class ProfileViewBody extends StatelessWidget {
           sufIcon: const Icon(Icons.arrow_forward_ios_outlined),
         ),
         ProfileItem(
-          onTap: () {},
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.kTermsAndConditionsView);
+          },
           icon: Icons.fact_check_outlined,
           title: 'Terms & Conditions',
           sufIcon: const Icon(Icons.arrow_forward_ios_outlined),
         ),
         ProfileItem(
-          onTap: () {},
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.kFAQsView);
+          },
           icon: Icons.question_mark_sharp,
           title: 'FAQs',
           sufIcon: const Icon(Icons.arrow_forward_ios_outlined),
         ),
         ProfileItem(
-          onTap: () {},
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.kPrivacyPolicyView);
+          },
           icon: Icons.privacy_tip_outlined,
           title: 'privacy policy',
           sufIcon: const Icon(Icons.arrow_forward_ios_outlined),
