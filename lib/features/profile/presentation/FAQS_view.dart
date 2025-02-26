@@ -12,6 +12,7 @@ class FAQsView extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           children: [
             buildFAQItem(
               context,

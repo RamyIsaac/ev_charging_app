@@ -12,8 +12,12 @@ class PrivacyPolicyView extends StatelessWidget {
         title: const Text('Privacy Policy'),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(
+          right: 16,
+          left: 16,
+        ),
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

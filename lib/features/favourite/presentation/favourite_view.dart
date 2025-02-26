@@ -1,3 +1,4 @@
+import 'package:ev_charging/features/favourite/presentation/widgets/favourite_view_body.dart';
 import 'package:flutter/material.dart';
 
 class FavouriteView extends StatelessWidget {
@@ -5,6 +6,13 @@ class FavouriteView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Favourite'),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
+      ),
+      body: const SafeArea(child: FavouriteViewBody()),
+    );
   }
 }

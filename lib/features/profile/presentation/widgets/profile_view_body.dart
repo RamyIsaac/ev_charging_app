@@ -1,5 +1,4 @@
 import 'package:ev_charging/core/utils/app_router.dart';
-import 'package:ev_charging/features/profile/presentation/FAQS_view.dart';
 import 'package:ev_charging/features/profile/presentation/widgets/profile_item.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -10,6 +9,7 @@ class ProfileViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      physics: const BouncingScrollPhysics(),
       children: [
         const SizedBox(
           height: 20,
