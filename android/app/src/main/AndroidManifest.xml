@@ -3,6 +3,8 @@
         android:label="EV_Charging"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyB0T7AGqC6TjrMFNy7ri_APsTlls66VAe0"/>
         <activity
             android:name=".MainActivity"
             android:exported="true"
