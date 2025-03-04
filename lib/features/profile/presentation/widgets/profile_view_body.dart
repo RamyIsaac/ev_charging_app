@@ -1,4 +1,5 @@
 import 'package:ev_charging/core/utils/app_router.dart';
+import 'package:ev_charging/features/profile/presentation/widgets/profile_image.dart';
 import 'package:ev_charging/features/profile/presentation/widgets/profile_item.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -23,12 +24,7 @@ class ProfileViewBody extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const ClipRRect(
-          child: CircleAvatar(
-            backgroundImage: AssetImage('assets/images/Designer (1).jpeg'),
-            radius: 40,
-          ),
-        ),
+        const ProfileImage(),
         const SizedBox(
           height: 10,
         ),

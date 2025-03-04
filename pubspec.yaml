@@ -34,6 +34,7 @@ dependencies:
   flutter:
     sdk: flutter
   go_router: ^14.8.0
+  google_maps_flutter: ^2.10.1
   modal_progress_hud_nsn: ^0.5.1
   persistent_bottom_nav_bar: ^6.2.1
 

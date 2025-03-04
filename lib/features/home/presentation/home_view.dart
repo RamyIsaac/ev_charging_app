@@ -25,7 +25,9 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(child: views.elementAt(selectedIndex)),
+      body: SafeArea(
+        child: views.elementAt(selectedIndex),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: kSecondaryColor,
         unselectedItemColor: Colors.grey,
