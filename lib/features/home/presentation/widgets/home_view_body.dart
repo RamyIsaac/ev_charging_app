@@ -1,8 +1,6 @@
 import 'package:ev_charging/constants.dart';
-import 'package:ev_charging/core/widgets/custom_text_field.dart';
 import 'package:ev_charging/features/home/presentation/widgets/custom_google_map.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});

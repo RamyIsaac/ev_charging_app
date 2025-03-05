@@ -23,6 +23,8 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
       zoom: 12,
       target: LatLng(30.045198634574074, 31.231337623727107),
     );
+
+    initMarkers();
     super.initState();
   }
 
@@ -32,10 +34,12 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
     super.dispose();
   }
 
+  Set<Marker> markers = {};
   late GoogleMapController googleMapController;
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
+        markers: markers,
         onMapCreated: (controller) {
           googleMapController = controller;
         },
@@ -46,5 +50,12 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
           ),
         ),
         initialCameraPosition: initialCameraPosition);
+  }
+
+  void initMarkers() {
+    var stationsMarker = const Marker(
+        markerId: MarkerId('1'),
+        position: LatLng(22.746229517745167, 25.717283684274562));
+    markers.add(stationsMarker);
   }
 }
