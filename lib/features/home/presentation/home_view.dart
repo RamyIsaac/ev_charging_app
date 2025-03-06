@@ -15,7 +15,7 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   int selectedIndex = 0;
 
-  List<Widget> views = [
+  final List<Widget> views = [
     const HomeViewBody(),
     const EnRouteView(),
     const FavouriteView(),
@@ -26,20 +26,23 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: views.elementAt(selectedIndex),
+        child: IndexedStack(
+          index: selectedIndex,
+          children: views,
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
         selectedItemColor: kSecondaryColor,
         unselectedItemColor: Colors.grey,
         currentIndex: selectedIndex,
-        type: BottomNavigationBarType.shifting,
+        type: BottomNavigationBarType.fixed,
         iconSize: 30,
         showSelectedLabels: true,
         showUnselectedLabels: true,
-        onTap: (value) => {
+        onTap: (value) {
           setState(() {
             selectedIndex = value;
-          }),
+          });
         },
         items: const [
           BottomNavigationBarItem(

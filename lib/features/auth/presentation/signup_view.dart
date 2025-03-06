@@ -37,7 +37,7 @@ class _SignupViewState extends State<SignupView> {
                 physics: const BouncingScrollPhysics(),
                 children: [
                   Container(
-                    height: 270,
+                    height: MediaQuery.of(context).size.height * 0.4,
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                       image: const DecorationImage(
@@ -50,7 +50,7 @@ class _SignupViewState extends State<SignupView> {
                     ),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 50,
                   ),
                   const Text(
                     ' Sign Up',

@@ -6,6 +6,7 @@ import 'package:ev_charging/features/auth/presentation/widgets/custom_text_field
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class LoginView extends StatefulWidget {
@@ -38,7 +39,7 @@ class _LoginViewState extends State<LoginView> {
                 physics: const BouncingScrollPhysics(),
                 children: [
                   Container(
-                    height: 270,
+                    height: MediaQuery.of(context).size.height * 0.4,
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                       image: const DecorationImage(
@@ -51,7 +52,7 @@ class _LoginViewState extends State<LoginView> {
                     ),
                   ),
                   const SizedBox(
-                    height: 15,
+                    height: 50,
                   ),
                   const Text(
                     ' Sign In',
@@ -129,6 +130,40 @@ class _LoginViewState extends State<LoginView> {
                   const SizedBox(
                     height: 10,
                   ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await signInWithGoogle();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: kPrimaryColor,
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/Icons/google.png', // Ensure this file is in your assets folder
+                          height: 24,
+                        ),
+                        const SizedBox(width: 10),
+                        const Text(
+                          'Sign in with Google',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -143,7 +178,7 @@ class _LoginViewState extends State<LoginView> {
                             color: kSecondaryColor,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -162,5 +197,24 @@ class _LoginViewState extends State<LoginView> {
       password: password!,
     );
     GoRouter.of(context).push(AppRouter.kHomeView);
+  }
+
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      showSnackBar(context, 'Google Sign-In Successful');
+      GoRouter.of(context).push(AppRouter.kHomeView);
+    } catch (e) {
+      showSnackBar(context, 'Google Sign-In Failed. Please try again.');
+    }
   }
 }
