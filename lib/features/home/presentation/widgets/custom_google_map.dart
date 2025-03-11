@@ -30,8 +30,8 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
 
     locationService = LocationService();
     initMarkers();
-
-    updateMyLocation();
+    updateCurrentLocation();
+    // updateMyLocation();
     super.initState();
   }
 
@@ -42,7 +42,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
   }
 
   Set<Marker> markers = {};
-  GoogleMapController? googleMapController;
+  late GoogleMapController googleMapController;
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +51,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
         markers: markers,
         onMapCreated: (controller) {
           googleMapController = controller;
+          updateCurrentLocation();
         },
         cameraTargetBounds: CameraTargetBounds(
           LatLngBounds(
@@ -68,17 +69,17 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
     markers.add(stationsMarker);
   }
 
-  void updateMyLocation() async {
-    await locationService.checkAndRequestLocatonService();
-    var hasPermission =
-        await locationService.checkAndRequestLocatonPermission();
-    if (hasPermission) {
-      locationService.getRealTimeData((locationData) {
-        setMyLocationMarker(locationData);
-        updateMyCamera(locationData);
-      });
-    } else {}
-  }
+  // void updateMyLocation() async {
+  //   await locationService.checkAndRequestLocatonService();
+  //   var hasPermission =
+  //       await locationService.checkAndRequestLocatonPermission();
+  //   if (hasPermission ) {
+  //     locationService.getRealTimeData((locationData) {
+  //       setMyLocationMarker(locationData);
+  //       updateMyCamera(locationData);
+  //     });
+  //   } else {}
+  // }
 
   void updateMyCamera(LocationData locationData) {
     if (isFirstTime) {
@@ -104,5 +105,28 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
         position: LatLng(locationData.latitude!, locationData.longitude!));
     markers.add(myLocationMarker);
     setState(() {});
+  }
+
+  Future<void> updateCurrentLocation() async {
+    try {
+      var locationData = await locationService.getLocation();
+      LatLng currentLocation =
+          LatLng(locationData.latitude!, locationData.longitude!);
+      Marker myLocationMarker = Marker(
+        markerId: const MarkerId('my_location_marker'),
+        position: currentLocation,
+      );
+      markers.add(myLocationMarker);
+      setState(() {});
+      CameraPosition myCurrentcameraPosition = CameraPosition(
+        target: currentLocation,
+        zoom: 15,
+      );
+      googleMapController.animateCamera(
+          CameraUpdate.newCameraPosition(myCurrentcameraPosition));
+    } on LocationSerViceException catch (e) {
+      // TODO
+    } on LocationPermissionException catch (e) {
+    } catch (e) {}
   }
 }
