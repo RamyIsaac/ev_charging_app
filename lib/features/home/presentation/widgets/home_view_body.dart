@@ -1,5 +1,9 @@
 import 'package:ev_charging/constants.dart';
+import 'package:ev_charging/core/utils/google_maps_places_service.dart';
+import 'package:ev_charging/features/home/data/models/place_autocomplete_model/place_autocomplete_model.dart';
 import 'package:ev_charging/features/home/presentation/widgets/custom_google_map.dart';
+import 'package:ev_charging/features/home/presentation/widgets/custom_search_bar.dart';
+import 'package:ev_charging/features/home/presentation/widgets/predections_list_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeViewBody extends StatefulWidget {
@@ -10,6 +14,39 @@ class HomeViewBody extends StatefulWidget {
 }
 
 class _HomeViewBodyState extends State<HomeViewBody> {
+  late TextEditingController textEditingController;
+  late GoogleMapsPlacesService googleMapsPlacesService;
+  List<PlaceAutocompleteModel> places = [];
+  @override
+  void initState() {
+    textEditingController = TextEditingController();
+    googleMapsPlacesService = GoogleMapsPlacesService();
+    fetchPredections();
+    super.initState();
+  }
+
+  void fetchPredections() {
+    textEditingController.addListener(() async {
+      if (textEditingController.text.isNotEmpty) {
+        var result = await googleMapsPlacesService.getPlacePredictions(
+            input: textEditingController.text);
+
+        places.clear();
+        places.addAll(result);
+        setState(() {});
+      } else {
+        places.clear();
+        setState(() {});
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -69,7 +106,17 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   children: [
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.8,
-                      child: const CustomSearchBar(),
+                      child: Column(
+                        children: [
+                          CustomSearchBar(
+                            textEditingController: textEditingController,
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          PredectionsListView(places: places),
+                        ],
+                      ),
                     ),
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.1,
@@ -86,20 +133,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           ),
         ),
       ],
-    );
-  }
-}
-
-class CustomSearchBar extends StatelessWidget {
-  const CustomSearchBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const SearchBar(
-      leading: Icon(Icons.search),
-      hintText: 'search location',
     );
   }
 }
