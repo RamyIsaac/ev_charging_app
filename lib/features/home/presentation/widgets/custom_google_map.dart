@@ -1,5 +1,4 @@
 import 'package:ev_charging/core/utils/location_service.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
@@ -37,7 +36,7 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
 
   @override
   void dispose() {
-    googleMapController!.dispose();
+    googleMapController.dispose();
     super.dispose();
   }
 
@@ -88,10 +87,10 @@ class _CustomGoogleMapState extends State<CustomGoogleMap> {
         zoom: 13,
       );
       googleMapController
-          ?.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+          .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
       isFirstTime = false;
     } else {
-      googleMapController?.animateCamera(
+      googleMapController.animateCamera(
         CameraUpdate.newLatLng(
           LatLng(locationData.latitude!, locationData.longitude!),
         ),

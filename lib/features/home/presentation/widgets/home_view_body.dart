@@ -114,7 +114,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                           const SizedBox(
                             height: 12,
                           ),
-                          PredectionsListView(places: places),
+                          PredectionsListView(
+                            places: places,
+                            googleMapsPlacesService: googleMapsPlacesService,
+                          ),
                         ],
                       ),
                     ),

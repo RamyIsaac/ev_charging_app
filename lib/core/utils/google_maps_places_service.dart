@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:ev_charging/features/home/data/models/place_autocomplete_model/place_autocomplete_model.dart';
+import 'package:ev_charging/features/home/data/models/place_details_model/place_details_model.dart';
 import 'package:http/http.dart' as http;
 
 class GoogleMapsPlacesService {
@@ -20,6 +21,18 @@ class GoogleMapsPlacesService {
       return places;
     } else {
       throw Exception('Failed to load place predictions');
+    }
+  }
+
+  Future<PlaceDetailsModel> getPlaceDetails({required String placeId}) async {
+    var response = await http
+        .get(Uri.parse('$baseUrl/details/json?key=$apiKey&place_id=$placeId'));
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body)['result'];
+
+      return PlaceDetailsModel.fromJson(data);
+    } else {
+      throw Exception();
     }
   }
 }
