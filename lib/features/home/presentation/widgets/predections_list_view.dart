@@ -1,6 +1,7 @@
 import 'package:ev_charging/constants.dart';
 import 'package:ev_charging/core/utils/google_maps_places_service.dart';
 import 'package:ev_charging/features/home/data/models/place_autocomplete_model/place_autocomplete_model.dart';
+import 'package:ev_charging/features/home/data/models/place_details_model/place_details_model.dart';
 import 'package:flutter/material.dart';
 
 class PredectionsListView extends StatelessWidget {
@@ -8,10 +9,12 @@ class PredectionsListView extends StatelessWidget {
     super.key,
     required this.places,
     required this.googleMapsPlacesService,
+    required this.onPlaceSelected,
   });
 
   final List<PlaceAutocompleteModel> places;
   final GoogleMapsPlacesService googleMapsPlacesService;
+  final void Function(PlaceDetailsModel) onPlaceSelected;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -25,6 +28,7 @@ class PredectionsListView extends StatelessWidget {
               var placeDetails = await googleMapsPlacesService.getPlaceDetails(
                 placeId: places[index].placeId.toString(),
               );
+              onPlaceSelected(placeDetails);
             },
             iconColor: kSecondaryColor,
             leading: const Icon(Icons.location_pin),

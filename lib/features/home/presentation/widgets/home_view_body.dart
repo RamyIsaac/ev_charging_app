@@ -5,6 +5,7 @@ import 'package:ev_charging/features/home/presentation/widgets/custom_google_map
 import 'package:ev_charging/features/home/presentation/widgets/custom_search_bar.dart';
 import 'package:ev_charging/features/home/presentation/widgets/predections_list_view.dart';
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 class HomeViewBody extends StatefulWidget {
   const HomeViewBody({super.key});
@@ -13,12 +14,16 @@ class HomeViewBody extends StatefulWidget {
   State<HomeViewBody> createState() => _HomeViewBodyState();
 }
 
+String? sessionToken;
+
 class _HomeViewBodyState extends State<HomeViewBody> {
   late TextEditingController textEditingController;
   late GoogleMapsPlacesService googleMapsPlacesService;
   List<PlaceAutocompleteModel> places = [];
+  late Uuid uuid;
   @override
   void initState() {
+    uuid = const Uuid();
     textEditingController = TextEditingController();
     googleMapsPlacesService = GoogleMapsPlacesService();
     fetchPredections();
@@ -27,9 +32,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
 
   void fetchPredections() {
     textEditingController.addListener(() async {
+      sessionToken ??= uuid.v4();
       if (textEditingController.text.isNotEmpty) {
         var result = await googleMapsPlacesService.getPlacePredictions(
-            input: textEditingController.text);
+          sessionToken: sessionToken!,
+          input: textEditingController.text,
+        );
 
         places.clear();
         places.addAll(result);
@@ -115,6 +123,12 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                             height: 12,
                           ),
                           PredectionsListView(
+                            onPlaceSelected: (placeDetailsModel) {
+                              textEditingController.clear();
+                              places.clear();
+                              sessionToken = null;
+                              setState(() {});
+                            },
                             places: places,
                             googleMapsPlacesService: googleMapsPlacesService,
                           ),

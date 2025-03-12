@@ -9,9 +9,11 @@ class GoogleMapsPlacesService {
   final String apiKey = 'AIzaSyD5f2lyiptJ_9ytm2qcEBo9DzSILAXlKBE';
 
   Future<List<PlaceAutocompleteModel>> getPlacePredictions(
-      {required String input}) async {
-    var response = await http
-        .get(Uri.parse('$baseUrl/autocomplete/json?key=$apiKey&input=$input'));
+      {required String input, required String sessionToken}) async {
+    var response = await http.get(
+      Uri.parse(
+          '$baseUrl/autocomplete/json?key=$apiKey&input=$input&sessiontoken=$sessionToken'),
+    );
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body)['predictions'];
       List<PlaceAutocompleteModel> places = [];
