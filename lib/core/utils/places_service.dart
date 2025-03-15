@@ -4,7 +4,7 @@ import 'package:ev_charging/features/home/data/models/place_autocomplete_model/p
 import 'package:ev_charging/features/home/data/models/place_details_model/place_details_model.dart';
 import 'package:http/http.dart' as http;
 
-class GoogleMapsPlacesService {
+class PlacesService {
   final String baseUrl = 'https://maps.googleapis.com/maps/api/place';
   final String apiKey = 'AIzaSyD5f2lyiptJ_9ytm2qcEBo9DzSILAXlKBE';
 

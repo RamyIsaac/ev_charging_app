@@ -1,10 +1,16 @@
+import 'dart:async';
+
 import 'package:ev_charging/constants.dart';
-import 'package:ev_charging/core/utils/google_maps_places_service.dart';
+import 'package:ev_charging/core/utils/location_service.dart';
+import 'package:ev_charging/core/utils/map_service.dart';
+
 import 'package:ev_charging/features/home/data/models/place_autocomplete_model/place_autocomplete_model.dart';
-import 'package:ev_charging/features/home/presentation/widgets/custom_google_map.dart';
 import 'package:ev_charging/features/home/presentation/widgets/custom_search_bar.dart';
 import 'package:ev_charging/features/home/presentation/widgets/predections_list_view.dart';
 import 'package:flutter/material.dart';
+
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:location/location.dart';
 import 'package:uuid/uuid.dart';
 
 class HomeViewBody extends StatefulWidget {
@@ -17,41 +23,44 @@ class HomeViewBody extends StatefulWidget {
 String? sessionToken;
 
 class _HomeViewBodyState extends State<HomeViewBody> {
+  late CameraPosition initialCameraPosition;
+  bool isFirstTime = true;
+  late MapService mapService;
+  late LatLng destinationPlace;
+  late LatLng currentLocation;
+
   late TextEditingController textEditingController;
-  late GoogleMapsPlacesService googleMapsPlacesService;
+
   List<PlaceAutocompleteModel> places = [];
   late Uuid uuid;
+  Set<Marker> markers = {};
+  Set<Polyline> polylines = {};
+  late GoogleMapController googleMapController;
+
+  Timer? debounce;
+
   @override
   void initState() {
+    initialCameraPosition = const CameraPosition(
+      zoom: 12,
+      target: LatLng(30.045198634574074, 31.231337623727107),
+    );
+
+    mapService = MapService();
     uuid = const Uuid();
     textEditingController = TextEditingController();
-    googleMapsPlacesService = GoogleMapsPlacesService();
+
+    initMarkers();
+    updateCurrentLocation();
     fetchPredections();
     super.initState();
   }
 
-  void fetchPredections() {
-    textEditingController.addListener(() async {
-      sessionToken ??= uuid.v4();
-      if (textEditingController.text.isNotEmpty) {
-        var result = await googleMapsPlacesService.getPlacePredictions(
-          sessionToken: sessionToken!,
-          input: textEditingController.text,
-        );
-
-        places.clear();
-        places.addAll(result);
-        setState(() {});
-      } else {
-        places.clear();
-        setState(() {});
-      }
-    });
-  }
-
   @override
   void dispose() {
+    googleMapController.dispose();
     textEditingController.dispose();
+    debounce?.cancel();
     super.dispose();
   }
 
@@ -59,7 +68,22 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        const CustomGoogleMap(),
+        GoogleMap(
+          polylines: polylines,
+          zoomControlsEnabled: false,
+          markers: markers,
+          onMapCreated: (controller) {
+            googleMapController = controller;
+            updateCurrentLocation();
+          },
+          cameraTargetBounds: CameraTargetBounds(
+            LatLngBounds(
+              southwest: const LatLng(22.746229517745167, 25.717283684274562),
+              northeast: const LatLng(31.04705343238094, 32.57173866374353),
+            ),
+          ),
+          initialCameraPosition: initialCameraPosition,
+        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -106,7 +130,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                   ],
                 ),
               ),
-              // const Spacer(),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
                 child: Row(
@@ -123,14 +146,24 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                             height: 12,
                           ),
                           PredectionsListView(
-                            onPlaceSelected: (placeDetailsModel) {
+                            onPlaceSelected: (placeDetailsModel) async {
                               textEditingController.clear();
                               places.clear();
                               sessionToken = null;
                               setState(() {});
+                              destinationPlace = LatLng(
+                                  placeDetailsModel.geometry!.location!.lat!,
+                                  placeDetailsModel.geometry!.location!.lng!);
+                              var points = await mapService.getRouteData(
+                                  currentLocation: currentLocation,
+                                  destinationPlace: destinationPlace);
+                              mapService.displayRoutes(points,
+                                  polylines: polylines,
+                                  googleMapController: googleMapController);
+                              setState(() {});
                             },
                             places: places,
-                            googleMapsPlacesService: googleMapsPlacesService,
+                            mapServices: mapService,
                           ),
                         ],
                       ),
@@ -151,5 +184,70 @@ class _HomeViewBodyState extends State<HomeViewBody> {
         ),
       ],
     );
+  }
+
+  void initMarkers() {
+    // var stationsMarker =
+    //     const Marker(markerId: MarkerId('1'), position: LatLng(30, 30));
+    // markers.add(stationsMarker);
+  }
+
+  void updateMyCamera(LocationData locationData) {
+    if (isFirstTime) {
+      CameraPosition cameraPosition = CameraPosition(
+        target: LatLng(locationData.latitude!, locationData.longitude!),
+        zoom: 13,
+      );
+      googleMapController
+          .animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      isFirstTime = false;
+    } else {
+      googleMapController.animateCamera(
+        CameraUpdate.newLatLng(
+          LatLng(locationData.latitude!, locationData.longitude!),
+        ),
+      );
+    }
+  }
+
+  void setMyLocationMarker(LocationData locationData) {
+    var myLocationMarker = Marker(
+        markerId: const MarkerId('my_location_marker'),
+        position: LatLng(locationData.latitude!, locationData.longitude!));
+    markers.add(myLocationMarker);
+    setState(() {});
+  }
+
+  Future<void> updateCurrentLocation() async {
+    try {
+      currentLocation = await mapService.updateCurrentLocation(
+          googleMapController: googleMapController, markers: markers);
+      setState(() {});
+      CameraPosition myCurrentcameraPosition = CameraPosition(
+        target: currentLocation,
+        zoom: 15,
+      );
+      googleMapController.animateCamera(
+          CameraUpdate.newCameraPosition(myCurrentcameraPosition));
+    } on LocationSerViceException catch (e) {
+      // TODO
+    } on LocationPermissionException catch (e) {
+    } catch (e) {}
+  }
+
+  void fetchPredections() {
+    textEditingController.addListener(() {
+      if (debounce?.isActive ?? false) {
+        debounce?.cancel();
+      }
+      debounce = Timer(const Duration(milliseconds: 50), () async {
+        sessionToken ??= uuid.v4();
+        await mapService.getPredections(
+            input: textEditingController.text,
+            sessionToken: sessionToken!,
+            places: places);
+        setState(() {});
+      });
+    });
   }
 }
