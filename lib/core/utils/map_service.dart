@@ -12,12 +12,12 @@ import 'package:ev_charging/features/home/data/models/place_details_model/place_
 import 'package:ev_charging/features/home/data/models/routes_model/routes_model.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:http/http.dart';
 
 class MapService {
   PlacesService placesService = PlacesService();
   LocationService locationService = LocationService();
   RoutesService routesService = RoutesService();
+  LatLng? currentLocation;
 
   Future<void> getPredections(
       {required String input,
@@ -36,20 +36,18 @@ class MapService {
     }
   }
 
-  Future<List<LatLng>> getRouteData(
-      {required LatLng currentLocation,
-      required LatLng destinationPlace}) async {
+  Future<List<LatLng>> getRouteData({required LatLng destinationPlace}) async {
     LocationInfoModel origin = LocationInfoModel(
       location: LocationModel(
           latLng: LatLngModel(
-              latitude: currentLocation.latitude,
-              longitude: currentLocation.longitude)),
+              latitude: currentLocation!.latitude,
+              longitude: currentLocation!.longitude)),
     );
     LocationInfoModel destination = LocationInfoModel(
       location: LocationModel(
         latLng: LatLngModel(
             latitude: destinationPlace.latitude,
-            longitude: currentLocation.longitude),
+            longitude: destinationPlace.longitude),
       ),
     );
     var routes = await routesService.fetchRoutes(
@@ -104,24 +102,25 @@ class MapService {
     );
   }
 
-  Future<LatLng> updateCurrentLocation(
+  void updateCurrentLocation(
       {required Set<Marker> markers,
-      required GoogleMapController googleMapController}) async {
-    var locationData = await locationService.getLocation();
-    var currentLocation =
-        LatLng(locationData.latitude!, locationData.longitude!);
-    Marker myLocationMarker = Marker(
-      markerId: const MarkerId('my_location_marker'),
-      position: currentLocation,
-    );
-    CameraPosition myCurrentcameraPosition = CameraPosition(
-      target: currentLocation,
-      zoom: 15,
-    );
-    googleMapController
-        .animateCamera(CameraUpdate.newCameraPosition(myCurrentcameraPosition));
-    markers.add(myLocationMarker);
-    return currentLocation;
+      required GoogleMapController googleMapController,
+      required Function onUpdateCurrentLocation}) {
+    locationService.getRealTimeData((locationData) {
+      currentLocation = LatLng(locationData.latitude!, locationData.longitude!);
+      Marker myLocationMarker = Marker(
+        markerId: const MarkerId('my_location_marker'),
+        position: currentLocation!,
+      );
+      CameraPosition myCurrentcameraPosition = CameraPosition(
+        target: currentLocation!,
+        zoom: 15,
+      );
+      googleMapController.animateCamera(
+          CameraUpdate.newCameraPosition(myCurrentcameraPosition));
+      markers.add(myLocationMarker);
+      onUpdateCurrentLocation();
+    });
   }
 
   Future<PlaceDetailsModel> getPlaceDetails({required String placeId}) async {

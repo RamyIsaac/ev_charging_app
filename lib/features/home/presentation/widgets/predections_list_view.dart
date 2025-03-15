@@ -10,11 +10,14 @@ class PredectionsListView extends StatelessWidget {
     required this.places,
     required this.mapServices,
     required this.onPlaceSelected,
+    required this.onDestinationMarkerSelected,
   });
 
   final List<PlaceAutocompleteModel> places;
   final MapService mapServices;
   final void Function(PlaceDetailsModel) onPlaceSelected;
+  final void Function() onDestinationMarkerSelected;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,6 +32,7 @@ class PredectionsListView extends StatelessWidget {
                   placeId: places[index].placeId!);
 
               onPlaceSelected(placeDetails);
+              onDestinationMarkerSelected();
             },
             iconColor: kSecondaryColor,
             leading: const Icon(Icons.location_pin),

@@ -27,7 +27,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   bool isFirstTime = true;
   late MapService mapService;
   late LatLng destinationPlace;
-  late LatLng currentLocation;
 
   late TextEditingController textEditingController;
 
@@ -146,6 +145,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                             height: 12,
                           ),
                           PredectionsListView(
+                            onDestinationMarkerSelected: setDestinationMarker,
                             onPlaceSelected: (placeDetailsModel) async {
                               textEditingController.clear();
                               places.clear();
@@ -155,7 +155,6 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                                   placeDetailsModel.geometry!.location!.lat!,
                                   placeDetailsModel.geometry!.location!.lng!);
                               var points = await mapService.getRouteData(
-                                  currentLocation: currentLocation,
                                   destinationPlace: destinationPlace);
                               mapService.displayRoutes(points,
                                   polylines: polylines,
@@ -186,7 +185,17 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     );
   }
 
-  void initMarkers() {
+  void setDestinationMarker() {
+    markers.clear();
+    var destinationMarker = Marker(
+      markerId: const MarkerId('destination_marker'),
+      position: destinationPlace,
+    );
+    markers.add(destinationMarker);
+    setState(() {});
+  }
+
+  initMarkers() {
     // var stationsMarker =
     //     const Marker(markerId: MarkerId('1'), position: LatLng(30, 30));
     // markers.add(stationsMarker);
@@ -218,21 +227,22 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     setState(() {});
   }
 
-  Future<void> updateCurrentLocation() async {
+  void updateCurrentLocation() {
     try {
-      currentLocation = await mapService.updateCurrentLocation(
-          googleMapController: googleMapController, markers: markers);
+      mapService.updateCurrentLocation(
+          onUpdateCurrentLocation: () {
+            setState(() {});
+          },
+          googleMapController: googleMapController,
+          markers: markers);
       setState(() {});
-      CameraPosition myCurrentcameraPosition = CameraPosition(
-        target: currentLocation,
-        zoom: 15,
-      );
-      googleMapController.animateCamera(
-          CameraUpdate.newCameraPosition(myCurrentcameraPosition));
     } on LocationSerViceException catch (e) {
-      // TODO
+      throw e.toString();
     } on LocationPermissionException catch (e) {
-    } catch (e) {}
+      throw e.toString();
+    } catch (e) {
+      throw e.toString();
+    }
   }
 
   void fetchPredections() {
