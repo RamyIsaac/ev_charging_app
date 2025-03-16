@@ -2,6 +2,7 @@ import 'package:ev_charging/features/auth/presentation/login_view.dart';
 import 'package:ev_charging/features/auth/presentation/signup_view.dart';
 import 'package:ev_charging/features/enRoute/presentation/en_route_view.dart';
 import 'package:ev_charging/features/favourite/presentation/favourite_view.dart';
+import 'package:ev_charging/features/favourite/presentation/station_details_view.dart';
 import 'package:ev_charging/features/home/presentation/home_view.dart';
 import 'package:ev_charging/features/profile/presentation/FAQS_view.dart';
 import 'package:ev_charging/features/profile/presentation/edit_profile_view.dart';
@@ -28,6 +29,8 @@ abstract class AppRouter {
       '/homeView/profileView/termsAndConditionsView';
   static const kFAQsView = '/homeView/profileView/faqsView';
   static const kPrivacyPolicyView = '/homeView/profileView/privacyPolicyView';
+  //favourite feature views
+  static const kStationDetailsView = '/favouriteView/stationDetailsView';
   static final router = GoRouter(
     routes: [
       // auth feature views
@@ -80,6 +83,11 @@ abstract class AppRouter {
         path: kPrivacyPolicyView,
         builder: (context, state) => const PrivacyPolicyView(),
       ),
+
+      //favourite feature views
+      GoRoute(
+          path: kStationDetailsView,
+          builder: (context, state) => const StationDetailsView()),
     ],
   );
 }

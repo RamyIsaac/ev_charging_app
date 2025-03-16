@@ -1,4 +1,5 @@
 import 'package:ev_charging/core/widgets/custom_button.dart';
+import 'package:ev_charging/features/enRoute/presentation/widgets/custom_backround_image.dart';
 import 'package:ev_charging/features/enRoute/presentation/widgets/custom_enroute_item.dart';
 import 'package:flutter/material.dart';
 
@@ -8,16 +9,11 @@ class EnRouteViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      children: [
+      children: const [
         Stack(
           children: [
-            Image.asset(
-              'assets/images/charging_cars.webp',
-              fit: BoxFit.cover,
-              height: MediaQuery.of(context).size.height * 0.39,
-              width: double.infinity,
-            ),
-            const Row(
+            CustomBackgroundImage(),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
@@ -31,7 +27,7 @@ class EnRouteViewBody extends StatelessWidget {
             ),
           ],
         ),
-        const Padding(
+        Padding(
           padding: EdgeInsets.only(left: 16, right: 16),
           child: Column(
             children: [

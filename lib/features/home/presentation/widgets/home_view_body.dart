@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:ev_charging/constants.dart';
 import 'package:ev_charging/core/utils/location_service.dart';
 import 'package:ev_charging/core/utils/map_service.dart';
+import 'package:ev_charging/features/favourite/presentation/widgets/favourite_view_body.dart';
 
 import 'package:ev_charging/features/home/data/models/place_autocomplete_model/place_autocomplete_model.dart';
 import 'package:ev_charging/features/home/presentation/widgets/custom_search_bar.dart';
@@ -177,7 +178,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                     )
                   ],
                 ),
-              )
+              ),
             ],
           ),
         ),
@@ -221,8 +222,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
 
   void setMyLocationMarker(LocationData locationData) {
     var myLocationMarker = Marker(
-        markerId: const MarkerId('my_location_marker'),
-        position: LatLng(locationData.latitude!, locationData.longitude!));
+      markerId: const MarkerId('my_location_marker'),
+      position: LatLng(locationData.latitude!, locationData.longitude!),
+      infoWindow: const InfoWindow(title: 'My Location'),
+    );
     markers.add(myLocationMarker);
     setState(() {});
   }
@@ -237,12 +240,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
           markers: markers);
       setState(() {});
     } on LocationSerViceException catch (e) {
-      throw e.toString();
     } on LocationPermissionException catch (e) {
-      throw e.toString();
-    } catch (e) {
-      throw e.toString();
-    }
+    } catch (e) {}
   }
 
   void fetchPredections() {
