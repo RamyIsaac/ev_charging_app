@@ -12,7 +12,7 @@ class ChargingStation extends StatelessWidget {
   final VoidCallback onDirectionTap;
 
   const ChargingStation({
-    Key? key,
+    super.key,
     required this.name,
     required this.address,
     required this.availability,
@@ -21,7 +21,7 @@ class ChargingStation extends StatelessWidget {
     required this.connection,
     required this.points,
     required this.onDirectionTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

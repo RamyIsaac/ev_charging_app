@@ -3,10 +3,12 @@ import 'dart:async';
 import 'package:ev_charging/constants.dart';
 import 'package:ev_charging/core/utils/location_service.dart';
 import 'package:ev_charging/core/utils/map_service.dart';
+import 'package:ev_charging/core/widgets/charging_station.dart';
 import 'package:ev_charging/features/favourite/presentation/widgets/favourite_view_body.dart';
 
 import 'package:ev_charging/features/home/data/models/place_autocomplete_model/place_autocomplete_model.dart';
 import 'package:ev_charging/features/home/presentation/widgets/custom_search_bar.dart';
+import 'package:ev_charging/features/home/presentation/widgets/custom_stations_list_view.dart';
 import 'package:ev_charging/features/home/presentation/widgets/predections_list_view.dart';
 import 'package:flutter/material.dart';
 
@@ -182,6 +184,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             ],
           ),
         ),
+        const CustomStationsListView(),
       ],
     );
   }
