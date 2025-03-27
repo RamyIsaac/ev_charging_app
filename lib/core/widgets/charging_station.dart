@@ -73,26 +73,11 @@ class ChargingStation extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          const Icon(Icons.access_time,
-                              size: 14, color: Colors.grey),
-                          const SizedBox(width: 4),
-                          Text(availability,
-                              style: TextStyle(fontSize: screenWidth * 0.035)),
-                          const SizedBox(width: 8),
-                          const Icon(Icons.location_on,
-                              size: 14, color: Colors.grey),
-                          const SizedBox(width: 4),
-                          Text("$distance km",
-                              style: TextStyle(fontSize: screenWidth * 0.035)),
-                          const SizedBox(width: 8),
-                          const Icon(Icons.star, size: 14, color: Colors.amber),
-                          const SizedBox(width: 4),
-                          Text("$rating",
-                              style: TextStyle(fontSize: screenWidth * 0.035)),
-                        ],
-                      ),
+                      StationTimeDistanceRating(
+                          availability: availability,
+                          screenWidth: screenWidth,
+                          distance: distance,
+                          rating: rating),
                       const SizedBox(height: 4),
                     ],
                   ),
@@ -138,6 +123,40 @@ class ChargingStation extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class StationTimeDistanceRating extends StatelessWidget {
+  const StationTimeDistanceRating({
+    super.key,
+    required this.availability,
+    required this.screenWidth,
+    required this.distance,
+    required this.rating,
+  });
+
+  final String availability;
+  final double screenWidth;
+  final double distance;
+  final double rating;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Icon(Icons.access_time, size: 14, color: Colors.grey),
+        const SizedBox(width: 4),
+        Text(availability, style: TextStyle(fontSize: screenWidth * 0.035)),
+        const SizedBox(width: 8),
+        const Icon(Icons.location_on, size: 14, color: Colors.grey),
+        const SizedBox(width: 4),
+        Text("$distance km", style: TextStyle(fontSize: screenWidth * 0.035)),
+        const SizedBox(width: 8),
+        const Icon(Icons.star, size: 14, color: Colors.amber),
+        const SizedBox(width: 4),
+        Text("$rating", style: TextStyle(fontSize: screenWidth * 0.035)),
+      ],
     );
   }
 }

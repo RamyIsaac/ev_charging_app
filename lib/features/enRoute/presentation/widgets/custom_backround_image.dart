@@ -10,7 +10,7 @@ class CustomBackgroundImage extends StatelessWidget {
     return Image.asset(
       'assets/images/charging_cars.webp',
       fit: BoxFit.cover,
-      height: MediaQuery.of(context).size.height * 0.39,
+      height: MediaQuery.of(context).size.height * 0.35,
       width: double.infinity,
     );
   }

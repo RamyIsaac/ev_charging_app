@@ -41,7 +41,7 @@ class EnRouteViewBody extends StatelessWidget {
                 title: 'Pick destination point',
                 subtitle: 'the address that the user will go to ',
               ),
-              SizedBox(height: 40),
+              SizedBox(height: 60),
               CustomButton(text: 'See en route charging points'),
             ],
           ),
