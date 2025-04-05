@@ -1,6 +1,7 @@
 import 'package:ev_charging/features/auth/presentation/login_view.dart';
 import 'package:ev_charging/features/auth/presentation/signup_view.dart';
 import 'package:ev_charging/features/enRoute/presentation/en_route_view.dart';
+import 'package:ev_charging/features/favourite/presentation/book_slot_view.dart';
 import 'package:ev_charging/features/favourite/presentation/favourite_view.dart';
 import 'package:ev_charging/features/favourite/presentation/station_details_view.dart';
 import 'package:ev_charging/features/home/presentation/home_view.dart';
@@ -31,6 +32,12 @@ abstract class AppRouter {
   static const kPrivacyPolicyView = '/homeView/profileView/privacyPolicyView';
   //favourite feature views
   static const kStationDetailsView = '/favouriteView/stationDetailsView';
+  static const kBookingDetailsView =
+      '/favouriteView/stationDetailsView/bookingDetailsView';
+
+  //Payment feature views
+  static const kPaymentView =
+      '/favouriteView/stationDetailsView/bookingDetailsView/paymentView';
   static final router = GoRouter(
     routes: [
       // auth feature views
@@ -88,6 +95,10 @@ abstract class AppRouter {
       GoRoute(
           path: kStationDetailsView,
           builder: (context, state) => const StationDetailsView()),
+
+      GoRoute(
+          path: kBookingDetailsView,
+          builder: (context, state) => const BookSlotView()),
     ],
   );
 }

@@ -1,8 +1,8 @@
 import 'package:ev_charging/constants.dart';
-import 'package:ev_charging/core/widgets/custom_button.dart';
+import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/features/favourite/presentation/widgets/station_details_view_body.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class StationDetailsView extends StatelessWidget {
   const StationDetailsView({super.key});
@@ -35,7 +35,9 @@ class CustomBottomAppBar extends StatelessWidget {
               backgroundColor: const WidgetStatePropertyAll(kSecondaryColor),
               text: 'Book Now',
               textColor: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                GoRouter.of(context).push(AppRouter.kBookingDetailsView);
+              },
             ),
             CustomBottomButton(
               text: 'Get Direction',
