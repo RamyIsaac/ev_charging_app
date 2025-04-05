@@ -1,3 +1,4 @@
+import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/utils/styles.dart';
 import 'package:ev_charging/core/widgets/custom_button.dart';
 import 'package:ev_charging/features/favourite/presentation/widgets/custom_date_picker.dart';
@@ -5,6 +6,7 @@ import 'package:ev_charging/features/favourite/presentation/widgets/custom_drop_
 import 'package:ev_charging/features/favourite/presentation/widgets/custom_price_input.dart';
 import 'package:ev_charging/features/favourite/presentation/widgets/custom_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class BookSlotViewBody extends StatefulWidget {
   const BookSlotViewBody({super.key});
@@ -98,7 +100,9 @@ class _BookSlotViewBodyState extends State<BookSlotViewBody> {
           CustomButton(
             text: 'Continue',
             textColor: Colors.white,
-            onTap: () {},
+            onTap: () {
+              GoRouter.of(context).push(AppRouter.kMakePaymentView);
+            },
           ),
         ],
       ),

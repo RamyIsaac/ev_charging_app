@@ -5,6 +5,7 @@ import 'package:ev_charging/features/favourite/presentation/book_slot_view.dart'
 import 'package:ev_charging/features/favourite/presentation/favourite_view.dart';
 import 'package:ev_charging/features/favourite/presentation/station_details_view.dart';
 import 'package:ev_charging/features/home/presentation/home_view.dart';
+import 'package:ev_charging/features/payment/presentation/views/make_payment_view.dart';
 import 'package:ev_charging/features/profile/presentation/FAQS_view.dart';
 import 'package:ev_charging/features/profile/presentation/edit_profile_view.dart';
 import 'package:ev_charging/features/profile/presentation/my_booking_view.dart';
@@ -36,8 +37,8 @@ abstract class AppRouter {
       '/favouriteView/stationDetailsView/bookingDetailsView';
 
   //Payment feature views
-  static const kPaymentView =
-      '/favouriteView/stationDetailsView/bookingDetailsView/paymentView';
+  static const kMakePaymentView =
+      '/favouriteView/stationDetailsView/bookingDetailsView/makePaymentView';
   static final router = GoRouter(
     routes: [
       // auth feature views
@@ -99,6 +100,11 @@ abstract class AppRouter {
       GoRoute(
           path: kBookingDetailsView,
           builder: (context, state) => const BookSlotView()),
+
+      //payment feature views
+      GoRoute(
+          path: kMakePaymentView,
+          builder: (context, state) => const MakePaymentView()),
     ],
   );
 }
