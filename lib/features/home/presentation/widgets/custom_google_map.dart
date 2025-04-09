@@ -52,7 +52,7 @@
 //   }
 
 //   Set<Marker> markers = {};
-//   Set<Polyline> polylines = {}; 
+//   Set<Polyline> polylines = {};
 //   late GoogleMapController googleMapController;
 
 //   @override

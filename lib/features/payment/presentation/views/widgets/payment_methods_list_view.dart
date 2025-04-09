@@ -1,4 +1,4 @@
-import 'package:ev_charging/features/favourite/presentation/widgets/payment_method_item.dart';
+import 'package:ev_charging/features/payment/presentation/views/widgets/payment_method_item.dart';
 import 'package:flutter/material.dart';
 
 class PaymentMethodsListView extends StatefulWidget {

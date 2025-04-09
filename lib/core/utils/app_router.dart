@@ -1,7 +1,7 @@
 import 'package:ev_charging/features/auth/presentation/login_view.dart';
 import 'package:ev_charging/features/auth/presentation/signup_view.dart';
 import 'package:ev_charging/features/enRoute/presentation/en_route_view.dart';
-import 'package:ev_charging/features/favourite/presentation/book_slot_view.dart';
+import 'package:ev_charging/features/payment/presentation/views/book_slot_view.dart';
 import 'package:ev_charging/features/favourite/presentation/favourite_view.dart';
 import 'package:ev_charging/features/favourite/presentation/station_details_view.dart';
 import 'package:ev_charging/features/home/presentation/home_view.dart';

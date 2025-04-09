@@ -1,4 +1,4 @@
-import 'package:ev_charging/features/favourite/presentation/widgets/book_slot_view_body.dart';
+import 'package:ev_charging/features/payment/presentation/views/widgets/book_slot_view_body.dart';
 
 import 'package:flutter/material.dart';
 
