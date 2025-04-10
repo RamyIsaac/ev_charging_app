@@ -55,20 +55,6 @@ class StripeService {
     await presentPaymentSheet();
   }
 
-  //  Future<PaymentIntentModel> createCustomer(
-  //     PaymentIntentInputModel paymentIntentInputModel) async {
-  //   var response = await apiService.post(
-  //     url: 'https://api.stripe.com/v1/payment_intents',
-  //     body: paymentIntentInputModel.toJson(),
-  //     token: ApiKeys.secretKey,
-  //     contentType: Headers.formUrlEncodedContentType,
-  //   );
-
-  //   var paymentIntentModel = PaymentIntentModel.fromJson(response.data);
-
-  //   return paymentIntentModel;
-  // }
-
   Future<EphemeralKeyModel> createEphemeralKey(
       {required String customerId}) async {
     var response = await apiService.post(

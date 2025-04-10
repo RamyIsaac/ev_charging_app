@@ -102,7 +102,7 @@ class ProfileViewBody extends StatelessWidget {
       GoRouter.of(context).pushReplacement(AppRouter.kSignupView);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Logout failed. Please try again.')),
+        const SnackBar(content: Text('Logout failed. Please try again.')),
       );
     }
   }
