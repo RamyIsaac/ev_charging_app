@@ -2,9 +2,9 @@ import 'package:ev_charging/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomPriceInput extends StatelessWidget {
-  final double? value;
+  final int? value;
   final bool isFullCharge;
-  final void Function(double) onChanged;
+  final void Function(int) onChanged;
   final void Function(bool) onFullChargeToggle;
 
   const CustomPriceInput({
@@ -33,7 +33,7 @@ class CustomPriceInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final displayText =
-        isFullCharge ? 'Full Charge' : 'EGP ${value?.toStringAsFixed(0) ?? ''}';
+        isFullCharge ? 'Full Charge' : 'EGP ${value?.toString() ?? ''}';
 
     return GestureDetector(
       onTap: () => _showPriceModal(context),
@@ -48,8 +48,8 @@ class CustomPriceInput extends StatelessWidget {
         child: Text(
           displayText,
           style: TextStyle(
-              color:
-                  value != null || isFullCharge ? Colors.black : Colors.grey),
+            color: value != null || isFullCharge ? Colors.black : Colors.grey,
+          ),
         ),
       ),
     );
@@ -57,9 +57,9 @@ class CustomPriceInput extends StatelessWidget {
 }
 
 class _PriceSelectorBottomSheet extends StatefulWidget {
-  final double value;
+  final int value;
   final bool isFullCharge;
-  final void Function(double) onChanged;
+  final void Function(int) onChanged;
   final void Function(bool) onFullChargeToggle;
 
   const _PriceSelectorBottomSheet({
@@ -76,7 +76,7 @@ class _PriceSelectorBottomSheet extends StatefulWidget {
 }
 
 class _PriceSelectorBottomSheetState extends State<_PriceSelectorBottomSheet> {
-  late double price;
+  late int price;
   late bool fullCharge;
 
   @override
@@ -107,28 +107,30 @@ class _PriceSelectorBottomSheetState extends State<_PriceSelectorBottomSheet> {
             opacity: fullCharge ? 0.5 : 1,
             child: Slider(
               activeColor: kSecondaryColor,
-              value: price,
+              value: price.toDouble(),
               min: 10,
               max: 100,
               divisions: 90,
-              label: 'EGP ${price.toStringAsFixed(0)}',
+              label: 'EGP $price',
               onChanged: fullCharge
                   ? null
                   : (val) {
-                      setState(() => price = val);
-                      widget.onChanged(val);
+                      final int newValue = val.round();
+                      setState(() => price = newValue);
+                      widget.onChanged(newValue);
                     },
             ),
           ),
           const SizedBox(height: 12),
           ElevatedButton(
             style: const ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(kSecondaryColor),
-                shape: WidgetStatePropertyAll(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(12)),
-                  ),
-                )),
+              backgroundColor: WidgetStatePropertyAll(kSecondaryColor),
+              shape: WidgetStatePropertyAll(
+                RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                ),
+              ),
+            ),
             onPressed: () {
               if (!fullCharge) widget.onChanged(price);
               Navigator.pop(context);

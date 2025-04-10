@@ -30,5 +30,3 @@ class EVCharging extends StatelessWidget {
 //paymentIntentObject create payment intent (amount , currency)
 //initPaymentSheet (paymentIntentClientSecret)
 //presentPaymentSheet
-
-

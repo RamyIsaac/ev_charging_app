@@ -48,6 +48,7 @@ class PaymentMethodsBottomSheet extends StatelessWidget {
                 onTap: () {
                   PaymentIntentInputModel paymentIntentInputModel =
                       PaymentIntentInputModel(
+                    customerId: 'cus_S6L7yZeYsGAI9m',
                     amount: 100,
                     currency: 'usd',
                   );
