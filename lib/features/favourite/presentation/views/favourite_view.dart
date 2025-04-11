@@ -1,4 +1,4 @@
-import 'package:ev_charging/features/favourite/presentation/widgets/favourite_view_body.dart';
+import 'package:ev_charging/features/favourite/presentation/views/widgets/favourite_view_body.dart';
 import 'package:flutter/material.dart';
 
 class FavouriteView extends StatelessWidget {

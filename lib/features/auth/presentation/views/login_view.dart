@@ -1,35 +1,37 @@
 import 'package:ev_charging/constants.dart';
+import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/widgets/show_snack_bar.dart';
-import 'package:ev_charging/features/auth/presentation/widgets/custom_button.dart';
-import 'package:ev_charging/features/auth/presentation/widgets/custom_text_field.dart';
+import 'package:ev_charging/features/auth/presentation/views/widgets/custom_button.dart';
+import 'package:ev_charging/features/auth/presentation/views/widgets/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
-class SignupView extends StatefulWidget {
-  const SignupView({super.key});
+class LoginView extends StatefulWidget {
+  const LoginView({super.key});
 
   @override
-  State<SignupView> createState() => _SignupViewState();
+  State<LoginView> createState() => _LoginViewState();
 }
 
-class _SignupViewState extends State<SignupView> {
-  String? email;
-
-  String? password;
-
+class _LoginViewState extends State<LoginView> {
   bool isLoading = false;
-  bool isObsecure = true;
+
   GlobalKey<FormState> formKey = GlobalKey();
+
+  String? email, password;
+  bool isObscure = true;
 
   @override
   Widget build(BuildContext context) {
     return ModalProgressHUD(
-      inAsyncCall: false,
-      child: SafeArea(
-        child: Scaffold(
-          // backgroundColor: kPrimaryColor,
-          body: Padding(
+      inAsyncCall: isLoading,
+      child: Scaffold(
+        //backgroundColor: kPrimaryColor,
+        body: SafeArea(
+          child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Form(
               key: formKey,
@@ -53,7 +55,7 @@ class _SignupViewState extends State<SignupView> {
                     height: 50,
                   ),
                   const Text(
-                    ' Sign Up',
+                    ' Sign In',
                     style: TextStyle(
                       fontSize: 24,
                       color: kSecondaryColor,
@@ -81,17 +83,17 @@ class _SignupViewState extends State<SignupView> {
                       icon: Padding(
                         padding: const EdgeInsets.only(right: 12),
                         child: Icon(
-                          isObsecure ? Icons.visibility : Icons.visibility_off,
+                          isObscure ? Icons.visibility : Icons.visibility_off,
                           color: kSecondaryColor,
                         ),
                       ),
                       onPressed: () {
                         setState(() {
-                          isObsecure = !isObsecure;
+                          isObscure = !isObscure;
                         });
                       },
                     ),
-                    obsecureText: isObsecure,
+                    obsecureText: isObscure,
                     label: 'Password',
                     hint: 'make strong password',
                     preicon: const Icon(Icons.password),
@@ -100,20 +102,20 @@ class _SignupViewState extends State<SignupView> {
                     height: 50,
                   ),
                   CustomButton(
-                    text: 'Sign Up',
                     onTap: () async {
                       if (formKey.currentState!.validate()) {
                         isLoading = true;
                         setState(() {});
                         try {
-                          await userSignUp();
-                          showSnackBar(context, 'Registered Successfully');
-                          Navigator.pop(context);
+                          await userSignIn();
+                          showSnackBar(context, 'Signed In Successfully');
                         } on FirebaseAuthException catch (e) {
-                          if (e.code == 'weak-password') {
-                            showSnackBar(context, 'Password is too weak. ');
-                          } else if (e.code == 'email-already-in-use') {
-                            showSnackBar(context, 'email already in use. ');
+                          if (e.code == 'user-not-found') {
+                            showSnackBar(
+                                context, 'No user found for that email.');
+                          } else if (e.code == 'wrong-password') {
+                            showSnackBar(context,
+                                'Wrong password provided for that user.');
                           }
                         } catch (e) {
                           showSnackBar(context,
@@ -123,25 +125,60 @@ class _SignupViewState extends State<SignupView> {
                         setState(() {});
                       } else {}
                     },
+                    text: 'Sign In',
                   ),
                   const SizedBox(
                     height: 10,
                   ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await signInWithGoogle();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: kPrimaryColor,
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/Icons/google.png', // Ensure this file is in your assets folder
+                          height: 24,
+                        ),
+                        const SizedBox(width: 10),
+                        const Text(
+                          'Sign in with Google',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.black87,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      const Text('Already have an account? '),
+                      const Text('don\'t have an account? '),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          GoRouter.of(context).push(AppRouter.kSignupView);
                         },
                         child: const Text(
-                          ' Sign In',
+                          ' Sign Up',
                           style: TextStyle(
                             color: kSecondaryColor,
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ],
@@ -153,11 +190,31 @@ class _SignupViewState extends State<SignupView> {
     );
   }
 
-  Future<void> userSignUp() async {
+  Future<void> userSignIn() async {
     UserCredential user =
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: email!,
       password: password!,
     );
+    GoRouter.of(context).push(AppRouter.kHomeView);
+  }
+
+  Future<void> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAuthentication? googleAuth =
+          await googleUser?.authentication;
+
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
+
+      await FirebaseAuth.instance.signInWithCredential(credential);
+      showSnackBar(context, 'Google Sign-In Successful');
+      GoRouter.of(context).push(AppRouter.kHomeView);
+    } catch (e) {
+      showSnackBar(context, 'Google Sign-In Failed. Please try again.');
+    }
   }
 }

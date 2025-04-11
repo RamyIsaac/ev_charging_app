@@ -1,6 +1,6 @@
 import 'package:ev_charging/constants.dart';
 import 'package:ev_charging/core/utils/app_router.dart';
-import 'package:ev_charging/features/favourite/presentation/widgets/station_details_view_body.dart';
+import 'package:ev_charging/features/favourite/presentation/views/widgets/station_details_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -9,11 +9,10 @@ class StationDetailsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-        child: Scaffold(
+    return const Scaffold(
       bottomNavigationBar: CustomBottomAppBar(),
-      body: StationDetailsViewBody(),
-    ));
+      body: SafeArea(child: StationDetailsViewBody()),
+    );
   }
 }
 

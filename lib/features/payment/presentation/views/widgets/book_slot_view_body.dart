@@ -1,9 +1,9 @@
 import 'package:ev_charging/core/utils/styles.dart';
 import 'package:ev_charging/core/widgets/custom_button.dart';
-import 'package:ev_charging/features/favourite/presentation/widgets/custom_date_picker.dart';
-import 'package:ev_charging/features/favourite/presentation/widgets/custom_drop_down.dart';
-import 'package:ev_charging/features/favourite/presentation/widgets/custom_price_input.dart';
-import 'package:ev_charging/features/favourite/presentation/widgets/custom_time_picker.dart';
+import 'package:ev_charging/features/favourite/presentation/views/widgets/custom_date_picker.dart';
+import 'package:ev_charging/features/favourite/presentation/views/widgets/custom_drop_down.dart';
+import 'package:ev_charging/features/favourite/presentation/views/widgets/custom_price_input.dart';
+import 'package:ev_charging/features/favourite/presentation/views/widgets/custom_time_picker.dart';
 import 'package:ev_charging/features/payment/data/repos/payment_repo_impl.dart';
 import 'package:ev_charging/features/payment/presentation/manager/cubit/stripe_payment_cubit.dart';
 import 'package:ev_charging/features/payment/presentation/views/widgets/payment_methods_bottom_sheet.dart';

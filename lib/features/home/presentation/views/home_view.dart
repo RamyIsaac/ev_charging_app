@@ -1,9 +1,8 @@
 import 'package:ev_charging/constants.dart';
-import 'package:ev_charging/core/widgets/charging_station.dart';
-import 'package:ev_charging/features/enRoute/presentation/en_route_view.dart';
-import 'package:ev_charging/features/favourite/presentation/favourite_view.dart';
-import 'package:ev_charging/features/home/presentation/widgets/home_view_body.dart';
-import 'package:ev_charging/features/profile/presentation/profile_view.dart';
+import 'package:ev_charging/features/enRoute/presentation/views/en_route_view.dart';
+import 'package:ev_charging/features/favourite/presentation/views/favourite_view.dart';
+import 'package:ev_charging/features/home/presentation/views/widgets/home_view_body.dart';
+import 'package:ev_charging/features/profile/presentation/views/profile_view.dart';
 import 'package:flutter/material.dart';
 
 class HomeView extends StatefulWidget {

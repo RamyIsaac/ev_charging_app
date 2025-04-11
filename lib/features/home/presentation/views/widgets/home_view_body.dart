@@ -5,9 +5,9 @@ import 'package:ev_charging/core/utils/location_service.dart';
 import 'package:ev_charging/core/utils/map_service.dart';
 
 import 'package:ev_charging/features/home/data/models/place_autocomplete_model/place_autocomplete_model.dart';
-import 'package:ev_charging/features/home/presentation/widgets/custom_search_bar.dart';
-import 'package:ev_charging/features/home/presentation/widgets/custom_stations_list_view.dart';
-import 'package:ev_charging/features/home/presentation/widgets/predections_list_view.dart';
+import 'package:ev_charging/features/home/presentation/views/widgets/custom_search_bar.dart';
+import 'package:ev_charging/features/home/presentation/views/widgets/custom_stations_list_view.dart';
+import 'package:ev_charging/features/home/presentation/views/widgets/predections_list_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_maps_flutter/google_maps_flutter.dart';

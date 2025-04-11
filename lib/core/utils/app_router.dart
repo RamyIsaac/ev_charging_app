@@ -1,17 +1,17 @@
-import 'package:ev_charging/features/auth/presentation/login_view.dart';
-import 'package:ev_charging/features/auth/presentation/signup_view.dart';
-import 'package:ev_charging/features/enRoute/presentation/en_route_view.dart';
+import 'package:ev_charging/features/auth/presentation/views/login_view.dart';
+import 'package:ev_charging/features/auth/presentation/views/signup_view.dart';
+import 'package:ev_charging/features/enRoute/presentation/views/en_route_view.dart';
 import 'package:ev_charging/features/payment/presentation/views/book_slot_view.dart';
-import 'package:ev_charging/features/favourite/presentation/favourite_view.dart';
-import 'package:ev_charging/features/favourite/presentation/station_details_view.dart';
-import 'package:ev_charging/features/home/presentation/home_view.dart';
+import 'package:ev_charging/features/favourite/presentation/views/favourite_view.dart';
+import 'package:ev_charging/features/favourite/presentation/views/station_details_view.dart';
+import 'package:ev_charging/features/home/presentation/views/home_view.dart';
 import 'package:ev_charging/features/payment/presentation/views/make_payment_view.dart';
 import 'package:ev_charging/features/profile/presentation/FAQS_view.dart';
-import 'package:ev_charging/features/profile/presentation/edit_profile_view.dart';
-import 'package:ev_charging/features/profile/presentation/my_booking_view.dart';
-import 'package:ev_charging/features/profile/presentation/privacy_policy_view.dart';
-import 'package:ev_charging/features/profile/presentation/profile_view.dart';
-import 'package:ev_charging/features/profile/presentation/terms_and_conditions_view.dart';
+import 'package:ev_charging/features/profile/presentation/views/edit_profile_view.dart';
+import 'package:ev_charging/features/profile/presentation/views/my_booking_view.dart';
+import 'package:ev_charging/features/profile/presentation/views/privacy_policy_view.dart';
+import 'package:ev_charging/features/profile/presentation/views/profile_view.dart';
+import 'package:ev_charging/features/profile/presentation/views/terms_and_conditions_view.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {

@@ -1,6 +1,6 @@
 import 'package:ev_charging/core/utils/app_router.dart';
-import 'package:ev_charging/features/profile/presentation/widgets/profile_image.dart';
-import 'package:ev_charging/features/profile/presentation/widgets/profile_item.dart';
+import 'package:ev_charging/features/profile/presentation/views/widgets/profile_image.dart';
+import 'package:ev_charging/features/profile/presentation/views/widgets/profile_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

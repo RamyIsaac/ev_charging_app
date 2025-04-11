@@ -1,6 +1,6 @@
 import 'package:ev_charging/core/widgets/custom_button.dart';
-import 'package:ev_charging/features/enRoute/presentation/widgets/custom_backround_image.dart';
-import 'package:ev_charging/features/enRoute/presentation/widgets/custom_enroute_item.dart';
+import 'package:ev_charging/features/enRoute/presentation/views/widgets/custom_backround_image.dart';
+import 'package:ev_charging/features/enRoute/presentation/views/widgets/custom_enroute_item.dart';
 import 'package:flutter/material.dart';
 
 class EnRouteViewBody extends StatelessWidget {

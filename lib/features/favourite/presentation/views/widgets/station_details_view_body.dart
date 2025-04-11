@@ -1,7 +1,7 @@
 import 'package:ev_charging/constants.dart';
 import 'package:ev_charging/core/widgets/charging_station.dart';
 import 'package:ev_charging/core/widgets/show_snack_bar.dart';
-import 'package:ev_charging/features/enRoute/presentation/widgets/custom_backround_image.dart';
+import 'package:ev_charging/features/enRoute/presentation/views/widgets/custom_backround_image.dart';
 import 'package:flutter/material.dart';
 
 class StationDetailsViewBody extends StatelessWidget {

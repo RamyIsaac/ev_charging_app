@@ -1,4 +1,4 @@
-import 'package:ev_charging/features/profile/presentation/widgets/my_booking_view_body.dart';
+import 'package:ev_charging/features/profile/presentation/views/widgets/my_booking_view_body.dart';
 import 'package:flutter/material.dart';
 
 class MyBookingView extends StatelessWidget {
