@@ -62,6 +62,7 @@ class PaymentMethodsBottomSheet extends StatelessWidget {
                   );
                   BlocProvider.of<StripePaymentCubit>(context)
                       .makePayment(paymentIntentInputModel);
+                  //paypal payment
                   // var transactionsData = getTransactions();
                   // executePaypalPayment(context, transactionsData);
                 },
