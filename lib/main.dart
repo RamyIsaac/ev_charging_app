@@ -12,11 +12,11 @@ void main() async {
   );
 
   Stripe.publishableKey = ApiKeys.publishableKey;
-  runApp(const EVCharging());
+  runApp(const ChargeGo());
 }
 
-class EVCharging extends StatelessWidget {
-  const EVCharging({super.key});
+class ChargeGo extends StatelessWidget {
+  const ChargeGo({super.key});
 
   @override
   Widget build(BuildContext context) {
