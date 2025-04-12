@@ -1,9 +1,11 @@
 import 'package:ev_charging/constants.dart';
+import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/widgets/show_snack_bar.dart';
 import 'package:ev_charging/features/auth/presentation/views/widgets/custom_button.dart';
 import 'package:ev_charging/features/auth/presentation/views/widgets/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class SignupView extends StatefulWidget {
@@ -133,7 +135,7 @@ class _SignupViewState extends State<SignupView> {
                       const Text('Already have an account? '),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pop(context);
+                          GoRouter.of(context).push(AppRouter.kSignInView);
                         },
                         child: const Text(
                           ' Sign In',
