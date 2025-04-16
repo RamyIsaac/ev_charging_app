@@ -2,7 +2,7 @@ import 'package:ev_charging/constants.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
-  CustomTextFormField({
+  const CustomTextFormField({
     super.key,
     this.preicon,
     this.suffIcon,
@@ -11,12 +11,12 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.obsecureText = false,
   });
-  Function(String)? onChanged;
+  final Function(String)? onChanged;
   final String label;
   final String hint;
-  Icon? preicon;
-  IconButton? suffIcon;
-  bool obsecureText;
+  final Icon? preicon;
+  final IconButton? suffIcon;
+  final bool obsecureText;
   @override
   Widget build(BuildContext context) {
     return TextFormField(

@@ -99,7 +99,7 @@ class ProfileViewBody extends StatelessWidget {
   Future<void> _logout(BuildContext context) async {
     try {
       await FirebaseAuth.instance.signOut();
-      GoRouter.of(context).pushReplacement(AppRouter.kSignupView);
+      GoRouter.of(context).pushReplacement(AppRouter.kSignUpView);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Logout failed. Please try again.')),

@@ -66,7 +66,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
               text: 'Start Now',
               textColor: Colors.white,
               onTap: () {
-                GoRouter.of(context).push(AppRouter.kSignupView);
+                GoRouter.of(context).push(AppRouter.kSignInView);
               },
             ),
           ),

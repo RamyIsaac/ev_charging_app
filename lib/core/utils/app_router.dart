@@ -1,4 +1,6 @@
 import 'package:ev_charging/features/auth/presentation/views/login_view.dart';
+import 'package:ev_charging/features/auth/presentation/views/sign_in_view.dart';
+import 'package:ev_charging/features/auth/presentation/views/sign_up_view.dart';
 import 'package:ev_charging/features/auth/presentation/views/signup_view.dart';
 import 'package:ev_charging/features/enRoute/presentation/views/en_route_view.dart';
 import 'package:ev_charging/features/on_boarding/presentation/views/on_boarding_view.dart';
@@ -17,7 +19,7 @@ import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
   //auth feature views
-  static const kSignupView = '/signupView';
+  static const kSignUpView = '/signupView';
   static const kSignInView = '/signinView';
 
   //Bottom Navigation Bar views
@@ -49,11 +51,11 @@ abstract class AppRouter {
 
       GoRoute(
         path: kSignInView,
-        builder: (context, state) => const LoginView(),
+        builder: (context, state) => const SignInView(),
       ),
       GoRoute(
-        path: kSignupView,
-        builder: (context, state) => const SignupView(),
+        path: kSignUpView,
+        builder: (context, state) => const SignUpView(),
       ),
 
       //Bottom Navigation Bar views
