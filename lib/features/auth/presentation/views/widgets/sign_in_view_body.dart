@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:ev_charging/constants.dart';
 import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/widgets/custom_button.dart';
@@ -25,9 +27,9 @@ class _SignInViewBodyState extends State<SignInViewBody> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
+        physics: const BouncingScrollPhysics(),
         child: Form(
           key: formKey,
           autovalidateMode: autovalidateMode,
@@ -73,7 +75,7 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                   },
                   text: 'Sign In '),
               const SizedBox(height: 16),
-              DontHaveAccount(),
+              const DontHaveAccount(),
               const SizedBox(height: 33),
               const OrDivider(),
               const SizedBox(height: 33),
@@ -84,13 +86,17 @@ class _SignInViewBodyState extends State<SignInViewBody> {
                   label: 'Sign in with Google',
                   image: 'assets/Icons/google_icon.svg'),
               const SizedBox(height: 16),
-              SocialLoginButton(
-                  onPressed: () {},
-                  label: 'Sign in with Apple',
-                  image: 'assets/Icons/apple_icon.svg'),
+              Platform.isIOS
+                  ? SocialLoginButton(
+                      onPressed: () {},
+                      label: 'Sign in with Apple',
+                      image: 'assets/Icons/apple_icon.svg')
+                  : Container(),
               const SizedBox(height: 16),
               SocialLoginButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    context.read<SignInCubit>().signInWithFacebook();
+                  },
                   label: 'Sign in with Facebook',
                   image: 'assets/Icons/facebook_icon.svg'),
             ],

@@ -38,6 +38,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.0
+  flutter_facebook_auth: ^7.1.1
   flutter_paypal_payment: ^1.0.8
   flutter_polyline_points: ^2.1.0
   flutter_stripe: ^11.4.0
