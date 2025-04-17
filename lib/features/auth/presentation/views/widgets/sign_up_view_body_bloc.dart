@@ -1,4 +1,3 @@
-import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/widgets/show_snack_bar.dart';
 import 'package:ev_charging/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
 import 'package:ev_charging/features/auth/presentation/views/widgets/sign_up_view_body.dart';

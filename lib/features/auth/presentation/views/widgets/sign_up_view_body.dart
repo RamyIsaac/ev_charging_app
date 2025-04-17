@@ -1,15 +1,12 @@
 import 'package:ev_charging/constants.dart';
-import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/widgets/custom_button.dart';
 import 'package:ev_charging/core/widgets/custom_text_form_field.dart';
 import 'package:ev_charging/core/widgets/password_field.dart';
 import 'package:ev_charging/core/widgets/show_snack_bar.dart';
 import 'package:ev_charging/features/auth/presentation/manager/sign_up_cubit/sign_up_cubit.dart';
-import 'package:ev_charging/features/auth/presentation/views/sign_up_view.dart';
 import 'package:ev_charging/features/auth/presentation/views/widgets/terms_and_conditions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class SignUpViewBody extends StatefulWidget {
   const SignUpViewBody({super.key});
