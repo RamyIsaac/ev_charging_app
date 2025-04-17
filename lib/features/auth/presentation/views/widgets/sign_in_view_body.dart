@@ -33,15 +33,15 @@ class _SignInViewBodyState extends State<SignInViewBody> {
           autovalidateMode: autovalidateMode,
           child: Column(
             children: [
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               CustomTextFormField(
                   onSaved: (value) {
                     email = value!;
                   },
-                  label: Text('email'),
+                  label: const Text('email'),
                   hintText: 'email',
                   textInputType: TextInputType.emailAddress),
-              SizedBox(height: 16),
+              const SizedBox(height: 16),
               PasswordTextField(
                 onSaved: (value) {
                   password = value!;
@@ -75,17 +75,22 @@ class _SignInViewBodyState extends State<SignInViewBody> {
               const SizedBox(height: 16),
               DontHaveAccount(),
               const SizedBox(height: 33),
-              OrDivider(),
+              const OrDivider(),
               const SizedBox(height: 33),
               SocialLoginButton(
+                  onPressed: () {
+                    context.read<SignInCubit>().signInWithGoogle();
+                  },
                   label: 'Sign in with Google',
                   image: 'assets/Icons/google_icon.svg'),
               const SizedBox(height: 16),
               SocialLoginButton(
+                  onPressed: () {},
                   label: 'Sign in with Apple',
                   image: 'assets/Icons/apple_icon.svg'),
               const SizedBox(height: 16),
               SocialLoginButton(
+                  onPressed: () {},
                   label: 'Sign in with Facebook',
                   image: 'assets/Icons/facebook_icon.svg'),
             ],
