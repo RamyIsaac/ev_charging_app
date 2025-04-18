@@ -6,8 +6,31 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseAuthService {
-  Future<User> createUserWithEmailAndPassword(
-      {required String email, required String password}) async {
+  Future deleteUser() async {
+    await FirebaseAuth.instance.currentUser!.delete();
+  }
+
+/*************  ✨ Windsurf Command ⭐  *************/
+  /// Creates a new user account with the given email and password.
+  ///
+  /// This method attempts to create a new user account in Firebase
+  /// Authentication using the provided email and password. If the
+  /// creation is successful, it returns the created [User] object.
+  ///
+  /// Throws a [CustomException] with a specific message if the
+  /// creation fails due to reasons such as weak password, email
+  /// already in use, network failure, or other errors.
+  ///
+  /// - Parameters:
+  ///   - email: The email address of the user to be created.
+  ///   - password: The password for the new user account.
+  ///
+  /// - Returns: A [Future] that resolves to the created [User] object
+  ///   if the operation is successful.
+
+/*******  1dcbc0cd-0eb2-4935-a334-1525a276fe9c  *******/ Future<User>
+      createUserWithEmailAndPassword(
+          {required String email, required String password}) async {
     try {
       final credential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
