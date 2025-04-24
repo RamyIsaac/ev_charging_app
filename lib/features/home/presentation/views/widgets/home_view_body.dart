@@ -5,6 +5,8 @@ import 'package:ev_charging/core/utils/location_service.dart';
 import 'package:ev_charging/core/utils/map_service.dart';
 
 import 'package:ev_charging/features/home/data/models/place_autocomplete_model/place_autocomplete_model.dart';
+import 'package:ev_charging/features/home/presentation/views/widgets/custom_home_app_bar.dart';
+import 'package:ev_charging/features/home/presentation/views/widgets/custom_home_map.dart';
 import 'package:ev_charging/features/home/presentation/views/widgets/custom_search_bar.dart';
 import 'package:ev_charging/features/home/presentation/views/widgets/custom_stations_list_view.dart';
 import 'package:ev_charging/features/home/presentation/views/widgets/predections_list_view.dart';
@@ -68,67 +70,22 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        GoogleMap(
-          polylines: polylines,
-          zoomControlsEnabled: false,
+        CustomHomeMap(
+          initialCameraPosition: initialCameraPosition,
           markers: markers,
+          polylines: polylines,
           onMapCreated: (controller) {
             googleMapController = controller;
             updateCurrentLocation();
           },
-          cameraTargetBounds: CameraTargetBounds(
-            LatLngBounds(
-              southwest: const LatLng(22.746229517745167, 25.717283684274562),
-              northeast: const LatLng(31.04705343238094, 32.57173866374353),
-            ),
-          ),
-          initialCameraPosition: initialCameraPosition,
         ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(50),
-                      child: Image.asset(
-                        'assets/images/Designer (1).jpeg',
-                        height: 50,
-                        width: 50,
-                      ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Ramy Isaac',
-                          style: TextStyle(
-                              fontFamily: 'Pacifico',
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'find your nearest charging point ',
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ],
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.notifications,
-                        color: kSecondaryColor,
-                        size: 24,
-                      ),
-                    ),
-                  ],
-                ),
+              const Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: CustomHomeAppBar(),
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 20),
@@ -156,6 +113,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                                   placeDetailsModel.geometry!.location!.lat!,
                                   placeDetailsModel.geometry!.location!.lng!);
                               var points = await mapService.getRouteData(
+                                  googleMapController: googleMapController,
                                   destinationPlace: destinationPlace);
                               mapService.displayRoutes(points,
                                   polylines: polylines,

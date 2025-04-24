@@ -36,7 +36,9 @@ class MapService {
     }
   }
 
-  Future<List<LatLng>> getRouteData({required LatLng destinationPlace}) async {
+  Future<List<LatLng>> getRouteData(
+      {required LatLng destinationPlace,
+      required GoogleMapController googleMapController}) async {
     LocationInfoModel origin = LocationInfoModel(
       location: LocationModel(
           latLng: LatLngModel(
