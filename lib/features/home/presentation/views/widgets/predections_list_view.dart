@@ -24,6 +24,7 @@ class PredectionsListView extends StatelessWidget {
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12), color: Colors.white),
       child: ListView.separated(
+        physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return ListTile(

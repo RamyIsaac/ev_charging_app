@@ -1,5 +1,4 @@
 import 'package:ev_charging/core/utils/app_router.dart';
-import 'package:ev_charging/features/profile/presentation/views/widgets/profile_image.dart';
 import 'package:ev_charging/features/profile/presentation/views/widgets/profile_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,30 +13,47 @@ class ProfileViewBody extends StatelessWidget {
       child: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          const SizedBox(height: 20),
-          const Center(
-            child: Text(
-              'Profile',
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          const SizedBox(height: 30),
+          // const Center(
+          //   child: Text(
+          //     'Profile',
+          //     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+          //   ),
+          // ),
+          // const SizedBox(height: 20),
+          // SvgPicture.asset('assets/images/profile_view_image.svg'),
+          // const SizedBox(height: 10),
+          // const Center(
+          //   child: Text(
+          //     'Ramy Isaac',
+          //     style: TextStyle(
+          //         fontSize: 24,
+          //         fontFamily: 'Pacifico',
+          //         fontWeight: FontWeight.bold),
+          //   ),
+          // ),
+          // const SizedBox(height: 5),
+          // const Center(
+          //   child: Text('+20 1205301271', style: TextStyle(color: Colors.grey)),
+          // ),
+          // const SizedBox(height: 20),
+          ListTile(
+            leading: Image.asset(
+              'assets/images/profile_image.png',
+              height: 70,
+              width: 100,
             ),
-          ),
-          const SizedBox(height: 20),
-          const ProfileImage(),
-          const SizedBox(height: 10),
-          const Center(
-            child: Text(
+            title: const Text(
               'Ramy Isaac',
               style: TextStyle(
-                  fontSize: 24,
                   fontFamily: 'Pacifico',
-                  fontWeight: FontWeight.bold),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
             ),
+            subtitle: const Text('ramyeshak@gmail.com'),
           ),
-          const SizedBox(height: 5),
-          const Center(
-            child: Text('+20 1205301271', style: TextStyle(color: Colors.grey)),
-          ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 60),
+
           ProfileItem(
             onTap: () {
               GoRouter.of(context).push(AppRouter.kEditProfileView);

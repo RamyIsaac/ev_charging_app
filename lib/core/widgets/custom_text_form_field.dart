@@ -23,6 +23,8 @@ class CustomTextFormField extends StatelessWidget {
       validator: (value) {
         if (value!.isEmpty) {
           return 'Required Field';
+        } else {
+          return null;
         }
       },
       onSaved: onSaved,

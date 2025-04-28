@@ -9,7 +9,7 @@ class ProfileImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const ClipRRect(
       child: CircleAvatar(
-        backgroundImage: AssetImage('assets/images/on_boarding.png'),
+        backgroundImage: AssetImage('assets/images/profile_image.png'),
         radius: 70,
       ),
     );

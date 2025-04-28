@@ -1,7 +1,5 @@
-import 'package:ev_charging/features/auth/presentation/views/login_view.dart';
 import 'package:ev_charging/features/auth/presentation/views/sign_in_view.dart';
 import 'package:ev_charging/features/auth/presentation/views/sign_up_view.dart';
-import 'package:ev_charging/features/auth/presentation/views/signup_view.dart';
 import 'package:ev_charging/features/enRoute/presentation/views/en_route_view.dart';
 import 'package:ev_charging/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:ev_charging/features/payment/presentation/views/book_slot_view.dart';
@@ -18,6 +16,7 @@ import 'package:ev_charging/features/profile/presentation/views/terms_and_condit
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
+  static const kOnBoardingView = '/';
   //auth feature views
   static const kSignUpView = '/signupView';
   static const kSignInView = '/signinView';
@@ -113,7 +112,9 @@ abstract class AppRouter {
           path: kMakePaymentView,
           builder: (context, state) => const MakePaymentView()),
 //on_boarding feature views
-      GoRoute(path: '/', builder: (context, state) => const OnBoardingView()),
+      GoRoute(
+          path: kOnBoardingView,
+          builder: (context, state) => const OnBoardingView()),
     ],
   );
 }
