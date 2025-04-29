@@ -1,3 +1,4 @@
+import 'package:ev_charging/core/services/paymob_service.dart';
 import 'package:ev_charging/core/utils/api_keys.dart';
 import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/utils/custom_bloc_observer.dart';
@@ -15,6 +16,7 @@ void main() async {
   );
   Bloc.observer = CustomBlocObserver();
   Stripe.publishableKey = ApiKeys.publishableKey;
+  await PaymobService.initPaymob();
   setupGetIt();
   runApp(const ChargeGo());
 }

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ev_charging/core/services/paymob_service.dart';
 import 'package:ev_charging/core/utils/api_keys.dart';
 import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/utils/styles.dart';
@@ -9,6 +10,7 @@ import 'package:ev_charging/features/payment/data/models/amount_paypal_model/det
 import 'package:ev_charging/features/payment/data/models/items_paypal_model/item.dart';
 import 'package:ev_charging/features/payment/data/models/items_paypal_model/items_paypal_model.dart';
 import 'package:ev_charging/features/payment/data/models/payment_intent_input_model.dart';
+import 'package:ev_charging/features/payment/data/repos/payment_repo_impl.dart';
 import 'package:ev_charging/features/payment/presentation/manager/cubit/stripe_payment_cubit.dart';
 import 'package:ev_charging/features/payment/presentation/views/widgets/payment_methods_list_view.dart';
 import 'package:flutter/material.dart';
@@ -53,18 +55,23 @@ class PaymentMethodsBottomSheet extends StatelessWidget {
                 isLoading: state is StripePaymentLoading ? true : false,
                 text: 'Continue',
                 textColor: Colors.white,
-                onTap: () {
-                  PaymentIntentInputModel paymentIntentInputModel =
-                      PaymentIntentInputModel(
-                    customerId: 'cus_S6L7yZeYsGAI9m',
-                    amount: 100,
-                    currency: 'usd',
-                  );
-                  BlocProvider.of<StripePaymentCubit>(context)
-                      .makePayment(paymentIntentInputModel);
-                  //paypal payment
-                  // var transactionsData = getTransactions();
-                  // executePaypalPayment(context, transactionsData);
+                onTap: () async {
+                  if (PaymentMethodsListView.activeIndex == 0) {
+                    PaymentIntentInputModel paymentIntentInputModel =
+                        PaymentIntentInputModel(
+                      customerId: 'cus_S6L7yZeYsGAI9m',
+                      amount: 100,
+                      currency: 'usd',
+                    );
+                    BlocProvider.of<StripePaymentCubit>(context)
+                        .makePayment(paymentIntentInputModel);
+                  } else if (PaymentMethodsListView.activeIndex == 1) {
+                    //paypal payment
+                    var transactionsData = getTransactions();
+                    executePaypalPayment(context, transactionsData);
+                  } else {
+                    await PaymobService.payWithCard(context);
+                  }
                 },
               );
             },
