@@ -1,27 +1,11 @@
 import 'package:ev_charging/constants.dart';
+import 'package:ev_charging/features/home/data/models/charging_station_model/charging_station_model.dart';
 import 'package:flutter/material.dart';
 
 class ChargingStation extends StatelessWidget {
-  final String name;
-  final String address;
-  final String availability;
-  final double distance;
-  final double rating;
-  final String connection;
-  final int points;
-  final VoidCallback onDirectionTap;
+  final ChargingStationModel chargingStationModel;
 
-  const ChargingStation({
-    super.key,
-    required this.name,
-    required this.address,
-    required this.availability,
-    required this.distance,
-    required this.rating,
-    required this.connection,
-    required this.points,
-    required this.onDirectionTap,
-  });
+  const ChargingStation({super.key, required this.chargingStationModel});
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +41,7 @@ class ChargingStation extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        name,
+                        chargingStationModel.name,
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
                             fontWeight: FontWeight.bold),
@@ -65,7 +49,7 @@ class ChargingStation extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        address,
+                        chargingStationModel.address,
                         style: TextStyle(
                             color: Colors.grey[600],
                             fontSize: screenWidth * 0.035),
@@ -74,10 +58,10 @@ class ChargingStation extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       StationTimeDistanceRating(
-                          availability: availability,
+                          availability: chargingStationModel.operatingHours,
                           screenWidth: screenWidth,
-                          distance: distance,
-                          rating: rating),
+                          distance: chargingStationModel.id.toDouble(),
+                          rating: chargingStationModel.rating),
                       const SizedBox(height: 4),
                     ],
                   ),
@@ -91,13 +75,13 @@ class ChargingStation extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Connection: $connection",
+                      "Connection: ${chargingStationModel.availableConnectors}",
                       style: TextStyle(
                           fontSize: screenWidth * 0.035,
                           fontWeight: FontWeight.w500),
                     ),
                     Text(
-                      "$points points",
+                      "${chargingStationModel.availableConnectors} points",
                       style: TextStyle(
                           fontSize: screenWidth * 0.035, color: Colors.blue),
                     ),
@@ -105,7 +89,7 @@ class ChargingStation extends StatelessWidget {
                 ),
                 const Spacer(),
                 ElevatedButton(
-                  onPressed: onDirectionTap,
+                  onPressed: () {},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: kSecondaryColor,
                     shape: RoundedRectangleBorder(
@@ -139,24 +123,27 @@ class StationTimeDistanceRating extends StatelessWidget {
   final String availability;
   final double screenWidth;
   final double distance;
-  final double rating;
+  final String rating;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        const Icon(Icons.access_time, size: 14, color: Colors.grey),
-        const SizedBox(width: 4),
-        Text(availability, style: TextStyle(fontSize: screenWidth * 0.035)),
-        const SizedBox(width: 8),
-        const Icon(Icons.location_on, size: 14, color: Colors.grey),
-        const SizedBox(width: 4),
-        Text("$distance km", style: TextStyle(fontSize: screenWidth * 0.035)),
-        const SizedBox(width: 8),
-        const Icon(Icons.star, size: 14, color: Colors.amber),
-        const SizedBox(width: 4),
-        Text("$rating", style: TextStyle(fontSize: screenWidth * 0.035)),
-      ],
+    return FittedBox(
+      fit: BoxFit.scaleDown,
+      child: Row(
+        children: [
+          const Icon(Icons.access_time, size: 14, color: Colors.grey),
+          const SizedBox(width: 4),
+          Text(availability, style: TextStyle(fontSize: screenWidth * 0.035)),
+          const SizedBox(width: 8),
+          const Icon(Icons.location_on, size: 14, color: Colors.grey),
+          const SizedBox(width: 4),
+          Text("$distance km", style: TextStyle(fontSize: screenWidth * 0.035)),
+          const SizedBox(width: 8),
+          const Icon(Icons.star, size: 14, color: Colors.amber),
+          const SizedBox(width: 4),
+          Text(rating, style: TextStyle(fontSize: screenWidth * 0.035)),
+        ],
+      ),
     );
   }
 }

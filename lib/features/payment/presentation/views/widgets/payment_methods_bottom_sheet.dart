@@ -10,7 +10,6 @@ import 'package:ev_charging/features/payment/data/models/amount_paypal_model/det
 import 'package:ev_charging/features/payment/data/models/items_paypal_model/item.dart';
 import 'package:ev_charging/features/payment/data/models/items_paypal_model/items_paypal_model.dart';
 import 'package:ev_charging/features/payment/data/models/payment_intent_input_model.dart';
-import 'package:ev_charging/features/payment/data/repos/payment_repo_impl.dart';
 import 'package:ev_charging/features/payment/presentation/manager/cubit/stripe_payment_cubit.dart';
 import 'package:ev_charging/features/payment/presentation/views/widgets/payment_methods_list_view.dart';
 import 'package:flutter/material.dart';

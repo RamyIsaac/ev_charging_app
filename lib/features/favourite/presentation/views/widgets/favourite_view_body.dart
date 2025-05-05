@@ -1,7 +1,7 @@
 import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/widgets/charging_station.dart';
+import 'package:ev_charging/features/home/data/models/charging_station_model/charging_station_model.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
 
 class FavouriteViewBody extends StatelessWidget {
@@ -19,6 +19,7 @@ class StationsListView extends StatelessWidget {
     required this.scrollDirection,
   });
   final Axis scrollDirection;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
@@ -26,20 +27,26 @@ class StationsListView extends StatelessWidget {
         itemCount: 10,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () {
-              GoRouter.of(context).push(AppRouter.kStationDetailsView);
-            },
-            child: ChargingStation(
-                name: 'Bloom Charging Station ',
-                address:
-                    'the address of the station.the address of the station.',
-                availability: '7*24hr',
-                distance: 4.8,
-                rating: 4.5,
-                connection: 'ios',
-                points: 8,
-                onDirectionTap: () {}),
-          );
+              onTap: () {
+                GoRouter.of(context).push(AppRouter.kStationDetailsView);
+              },
+              child: ChargingStation(
+                chargingStationModel: ChargingStationModel(
+                  name: 'name',
+                  address: 'address',
+                  city: 'city',
+                  state: 'state',
+                  zipCode: 'zipCode',
+                  imageUrl: 'imageUrl',
+                  longitude: 0.0,
+                  latitude: 0.0,
+                  isActive: true,
+                  rating: '5',
+                  availableConnectors: 8,
+                  operatingHours: '24/7',
+                  createdAt: TimeOfDay.now().toString(),
+                ),
+              ));
         });
   }
 }

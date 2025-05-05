@@ -130,7 +130,7 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                         icon: const Icon(Icons.filter_list_rounded),
                         color: kSecondaryColor,
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),

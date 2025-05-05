@@ -27,7 +27,7 @@ class StationDetailsViewBody extends StatelessWidget {
                   availability: '24/7',
                   screenWidth: MediaQuery.of(context).size.width,
                   distance: 5.5,
-                  rating: 5,
+                  rating: '5',
                 ),
                 const SizedBox(
                   height: 5,
