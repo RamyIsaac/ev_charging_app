@@ -1,5 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:ev_charging/core/errors/failures.dart';
+import 'package:ev_charging/features/auth/data/models/user_model.dart';
 import 'package:ev_charging/features/auth/domain/entities/user_entity.dart';
 
 abstract class AuthRepo {
@@ -13,5 +14,6 @@ abstract class AuthRepo {
 
   Future<Either<Failure, UserEntity>> signInWithFacebook();
   Future addUserData({required UserEntity user});
+  Future saveUserData({required UserModel user});
   Future<UserEntity> getUserData({required String uId});
 }

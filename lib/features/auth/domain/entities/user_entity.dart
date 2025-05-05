@@ -6,5 +6,4 @@ class UserEntity {
 
   UserEntity({required this.email, required this.name, required this.uId});
 
-  toMap() => {'email': email, 'name': name, 'uId': uId};
 }

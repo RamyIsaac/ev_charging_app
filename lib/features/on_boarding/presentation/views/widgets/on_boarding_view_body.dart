@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:ev_charging/constants.dart';
+import 'package:ev_charging/core/services/shared_preferences_singleton.dart';
 import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/widgets/custom_button.dart';
 import 'package:ev_charging/features/on_boarding/presentation/views/widgets/on_boarding_page_view.dart';
@@ -69,6 +70,22 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
                 GoRouter.of(context).push(AppRouter.kSignInView);
               },
             ),
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            //SharedPreferencesSingleton.setBool(isOnboardingSeen, true);
+            GoRouter.of(context).push(AppRouter.kSignInView);
+          },
+          child: const Text(
+            'Skip',
+            style: TextStyle(
+                color: kSecondaryColor,
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.underline,
+                decorationThickness: 2,
+                decorationColor: kSecondaryColor),
           ),
         ),
         const SizedBox(height: 40),

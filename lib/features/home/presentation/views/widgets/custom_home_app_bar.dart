@@ -1,4 +1,5 @@
 import 'package:ev_charging/constants.dart';
+import 'package:ev_charging/core/utils/functions/get_user.dart';
 import 'package:flutter/material.dart';
 
 class CustomHomeAppBar extends StatelessWidget {
@@ -21,11 +22,11 @@ class CustomHomeAppBar extends StatelessWidget {
         const SizedBox(
           width: 10,
         ),
-        const Column(
+        Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Ramy Isaac',
+              getUser().name,
               style: TextStyle(
                   fontFamily: 'Pacifico', fontWeight: FontWeight.bold),
             ),

@@ -1,6 +1,9 @@
+import 'package:ev_charging/constants.dart';
 import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/widgets/charging_station.dart';
+import 'package:ev_charging/features/home/presentation/manager/cubit/charging_station_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 class CustomStationsListView extends StatelessWidget {
@@ -19,33 +22,48 @@ class CustomStationsListView extends StatelessWidget {
       child: SizedBox(
         height:
             MediaQuery.of(context).size.height * 0.3, // Ensure a defined height
-        child: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          scrollDirection: Axis.horizontal,
-          itemCount: 10,
-          itemBuilder: (context, index) {
-            return SizedBox(
-              width: MediaQuery.of(context).size.width *
-                  0.99, // Set width per item
-              child: GestureDetector(
-                onTap: () {
-                  GoRouter.of(context).push(AppRouter.kStationDetailsView);
-                },
-                child: ChargingStation(
-                  name: 'Bloom Charging Station',
-                  address: 'The address of the station.',
-                  availability: '7*24hr',
-                  distance: 4.8,
-                  rating: 4.5,
-                  connection: 'iOS',
-                  points: 8,
-                  onDirectionTap: () {},
-                ),
-              ),
-            );
-          },
-        ),
+        child: const CustomStationListViewBloc(),
       ),
+    );
+  }
+}
+
+class CustomStationListViewBloc extends StatelessWidget {
+  const CustomStationListViewBloc({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ChargingStationCubit, ChargingStationState>(
+      builder: (context, state) {
+        if (state is ChargingStationSuccess) {
+          return ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            scrollDirection: Axis.horizontal,
+            itemCount: state.chargingStations.length,
+            itemBuilder: (context, index) {
+              return SizedBox(
+                width: MediaQuery.of(context).size.width *
+                    0.99, // Set width per item
+                child: GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).push(AppRouter.kStationDetailsView);
+                  },
+                  child: ChargingStation(
+                    chargingStationModel: state.chargingStations[index],
+                  ),
+                ),
+              );
+            },
+          );
+        } else {
+          return const Center(
+              child: CircularProgressIndicator(
+            color: kSecondaryColor,
+          ));
+        }
+      },
     );
   }
 }

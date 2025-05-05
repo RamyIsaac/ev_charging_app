@@ -1,4 +1,5 @@
 import 'package:ev_charging/core/utils/app_router.dart';
+import 'package:ev_charging/core/utils/functions/get_user.dart';
 import 'package:ev_charging/features/profile/presentation/views/widgets/profile_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -43,14 +44,15 @@ class ProfileViewBody extends StatelessWidget {
               height: 70,
               width: 100,
             ),
-            title: const Text(
-              'Ramy Isaac',
-              style: TextStyle(
+            title: Text(
+              getUser().name,
+              style: const TextStyle(
                   fontFamily: 'Pacifico',
                   fontWeight: FontWeight.bold,
                   fontSize: 20),
             ),
-            subtitle: const Text('ramyeshak@gmail.com'),
+            subtitle: Text(getUser().email,
+                style: const TextStyle(color: Colors.grey)),
           ),
           const SizedBox(height: 60),
 
