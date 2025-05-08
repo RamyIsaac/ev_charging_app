@@ -1,4 +1,4 @@
-import 'package:ev_charging/core/utils/functions/build_faq_item.dart';
+import 'package:ev_charging/core/functions/build_faq_item.dart';
 import 'package:flutter/material.dart';
 
 class FAQsView extends StatelessWidget {

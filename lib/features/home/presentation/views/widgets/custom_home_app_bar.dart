@@ -1,5 +1,5 @@
 import 'package:ev_charging/constants.dart';
-import 'package:ev_charging/core/utils/functions/get_user.dart';
+import 'package:ev_charging/core/functions/get_user.dart';
 import 'package:flutter/material.dart';
 
 class CustomHomeAppBar extends StatelessWidget {

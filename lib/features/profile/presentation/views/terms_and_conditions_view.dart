@@ -1,4 +1,4 @@
-import 'package:ev_charging/core/utils/functions/build_titles.dart';
+import 'package:ev_charging/core/functions/build_titles.dart';
 import 'package:flutter/material.dart';
 
 class TermsAndConditionsView extends StatelessWidget {

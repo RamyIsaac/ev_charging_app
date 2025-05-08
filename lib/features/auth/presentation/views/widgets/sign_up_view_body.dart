@@ -38,7 +38,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   onSaved: (value) {
                     name = value!;
                   },
-                  label: Text('name'),
+                  label:const  Text('name'),
                   hintText: 'Name',
                   textInputType: TextInputType.name),
               const SizedBox(
@@ -48,7 +48,7 @@ class _SignUpViewBodyState extends State<SignUpViewBody> {
                   onSaved: (value) {
                     email = value!;
                   },
-                  label: Text('email'),
+                  label:const  Text('email'),
                   hintText: 'email',
                   textInputType: TextInputType.emailAddress),
               const SizedBox(

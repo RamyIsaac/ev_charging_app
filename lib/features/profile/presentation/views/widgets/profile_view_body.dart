@@ -1,5 +1,5 @@
 import 'package:ev_charging/core/utils/app_router.dart';
-import 'package:ev_charging/core/utils/functions/get_user.dart';
+import 'package:ev_charging/core/functions/get_user.dart';
 import 'package:ev_charging/features/profile/presentation/views/widgets/profile_item.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
