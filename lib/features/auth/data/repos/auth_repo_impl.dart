@@ -8,7 +8,7 @@ import 'package:ev_charging/core/errors/failures.dart';
 import 'package:ev_charging/core/services/database_service.dart';
 import 'package:ev_charging/core/services/shared_preferences_singleton.dart';
 import 'package:ev_charging/core/utils/backend_end_points.dart';
-import 'package:ev_charging/core/utils/firebase_auth_service.dart';
+import 'package:ev_charging/core/services/firebase_auth_service.dart';
 import 'package:ev_charging/features/auth/data/models/user_model.dart';
 import 'package:ev_charging/features/auth/domain/entities/user_entity.dart';
 import 'package:ev_charging/features/auth/domain/repos/auth_repo.dart';

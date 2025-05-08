@@ -3,7 +3,7 @@ import 'package:ev_charging/core/services/shared_preferences_singleton.dart';
 import 'package:ev_charging/core/utils/api_keys.dart';
 import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/utils/custom_bloc_observer.dart';
-import 'package:ev_charging/core/utils/get_it_service.dart';
+import 'package:ev_charging/core/services/get_it_service.dart';
 import 'package:ev_charging/core/utils/supabase_service.dart';
 import 'package:ev_charging/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';

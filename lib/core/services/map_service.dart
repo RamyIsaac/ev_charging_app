@@ -1,9 +1,9 @@
 import 'dart:math';
 
 import 'package:ev_charging/constants.dart';
-import 'package:ev_charging/core/utils/places_service.dart';
-import 'package:ev_charging/core/utils/location_service.dart';
-import 'package:ev_charging/core/utils/routes_service.dart';
+import 'package:ev_charging/core/services/places_service.dart';
+import 'package:ev_charging/core/services/location_service.dart';
+import 'package:ev_charging/core/services/routes_service.dart';
 import 'package:ev_charging/features/home/data/models/location_info/lat_lng.dart';
 import 'package:ev_charging/features/home/data/models/location_info/location.dart';
 import 'package:ev_charging/features/home/data/models/location_info/location_info.dart';

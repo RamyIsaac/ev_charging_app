@@ -15,9 +15,9 @@ class StationModel {
   final double longitude;
   final int availableConnectors;
   bool? isAvailable;
-  num rating = 0;
+  num rating;
   bool? isActive;
-  final List<ReviewModel> reviews;
+  final List<ReviewModel>? reviews;
 
   StationModel({
     required this.stationName,
@@ -33,29 +33,9 @@ class StationModel {
     //  required this.chargingType,
     this.isActive,
     this.isAvailable,
-    required this.rating,
-    required this.reviews,
+    this.rating = 0,
+    this.reviews,
   });
-
-  factory StationModel.fromEntity(StationEntity entity) {
-    return StationModel(
-      stationName: entity.name,
-      price: entity.price,
-      address: entity.address,
-      imageUrl: entity.imageUrl,
-      image: entity.image,
-      code: entity.code,
-      isFeatured: entity.isFeatured,
-      latitude: entity.latitude,
-      longitude: entity.longitude,
-      availableConnectors: entity.availableConnectors,
-      isAvailable: entity.isAvailable,
-      rating: entity.rating,
-      isActive: entity.isActive,
-      reviews: entity.reviews.map((e) => ReviewModel.fromEntity(e)).toList(),
-      // chargingType: entity.chargingType,
-    );
-  }
 
   factory StationModel.fromJson(Map<String, dynamic> json) {
     return StationModel(
@@ -72,7 +52,13 @@ class StationModel {
       isAvailable: json['isAvailable'],
       rating: json['rating'],
       isActive: json['isActive'],
-      reviews: json['reviews'],
+      reviews: json['reviews'] != null
+          ? List<ReviewModel>.from(
+              json['reviews'].map(
+                (x) => ReviewModel.fromJson(x),
+              ),
+            )
+          : [],
     );
   }
 
@@ -93,7 +79,7 @@ class StationModel {
       'rating': rating,
       'isActive': isActive,
 
-      'reviews': reviews.map((e) => e.toJson()).toList(),
+      'reviews': reviews?.map((e) => e.toJson()).toList(),
     };
   }
 }

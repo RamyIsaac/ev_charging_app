@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:ev_charging/core/utils/api_keys.dart';
-import 'package:ev_charging/core/utils/api_service.dart';
+import 'package:ev_charging/core/services/api_service.dart';
 import 'package:ev_charging/features/payment/data/models/ephemeral_key_model/ephemeral_key_model.dart';
 import 'package:ev_charging/features/payment/data/models/init_payment_sheet_input_model.dart';
 import 'package:ev_charging/features/payment/data/models/payment_intent_input_model.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:ev_charging/constants.dart';
-import 'package:ev_charging/core/utils/location_service.dart';
-import 'package:ev_charging/core/utils/map_service.dart';
+import 'package:ev_charging/core/services/location_service.dart';
+import 'package:ev_charging/core/services/map_service.dart';
 import 'package:ev_charging/features/home/data/models/place_autocomplete_model/place_autocomplete_model.dart';
 import 'package:ev_charging/features/home/presentation/views/widgets/custom_home_app_bar.dart';
 import 'package:ev_charging/features/home/presentation/views/widgets/custom_home_map.dart';
