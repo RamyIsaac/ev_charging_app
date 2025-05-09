@@ -1,12 +1,13 @@
 import 'package:ev_charging/constants.dart';
+import 'package:ev_charging/core/entities/station_entity.dart';
 import 'package:ev_charging/core/widgets/charging_station.dart';
 import 'package:ev_charging/core/widgets/show_snack_bar.dart';
 import 'package:ev_charging/features/enRoute/presentation/views/widgets/custom_backround_image.dart';
 import 'package:flutter/material.dart';
 
 class StationDetailsViewBody extends StatelessWidget {
-  const StationDetailsViewBody({super.key});
-
+  const StationDetailsViewBody({super.key, required this.station});
+  final StationEntity station;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -14,28 +15,29 @@ class StationDetailsViewBody extends StatelessWidget {
         const CustomAppBar(),
         Expanded(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
             child: ListView(
               children: [
-                const Text(
+                Text(
                   overflow: TextOverflow.ellipsis,
                   maxLines: 1,
-                  'Bloom Charging Station',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  station.name,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold, fontSize: 20),
                 ),
                 StationTimeDistanceRating(
-                  availability: '24/7',
+                  availability: station.availability,
                   screenWidth: MediaQuery.of(context).size.width,
                   distance: 5.5,
-                  rating: '5',
+                  rating: station.rating,
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                const Text(
+                Text(
                     overflow: TextOverflow.ellipsis,
                     maxLines: 2,
-                    'the address kdhhkad aksudk of the station.the address of the station.'),
+                    station.address),
                 const SizedBox(
                   height: 10,
                 ),
@@ -50,11 +52,12 @@ class StationDetailsViewBody extends StatelessWidget {
                     children: [
                       ConnectionTypeCard(
                         type: ConnectionType(
-                            name: "CCS2",
-                            power: "150kw",
-                            price: "\$0.05/kw",
-                            available: 2,
-                            taken: 0),
+                          name: "CCS2",
+                          power: "150kw",
+                          price: "\$0.05/kw",
+                          available: 2,
+                          taken: 0,
+                        ),
                       ),
                       ConnectionTypeCard(
                         type: ConnectionType(
@@ -66,11 +69,12 @@ class StationDetailsViewBody extends StatelessWidget {
                       ),
                       ConnectionTypeCard(
                         type: ConnectionType(
-                            name: "Menneker",
-                            power: "22kw",
-                            price: "\$0.02/kw",
-                            available: 2,
-                            taken: 0),
+                          name: "Menneker",
+                          power: "22kw",
+                          price: "\$0.02/kw",
+                          available: 2,
+                          taken: 0,
+                        ),
                       ),
                     ],
                   ),
@@ -165,6 +169,8 @@ class ConnectionTypeWidget extends StatelessWidget {
         available: 2,
         taken: 0),
   ];
+
+  ConnectionTypeWidget({super.key});
 
   @override
   Widget build(BuildContext context) {

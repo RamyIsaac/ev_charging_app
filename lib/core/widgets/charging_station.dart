@@ -1,6 +1,5 @@
 import 'package:ev_charging/constants.dart';
 import 'package:ev_charging/core/entities/station_entity.dart';
-import 'package:ev_charging/features/home/data/models/charging_station_model/charging_station_model.dart';
 import 'package:flutter/material.dart';
 
 class ChargingStation extends StatelessWidget {
@@ -130,6 +129,7 @@ class StationTimeDistanceRating extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FittedBox(
+      alignment: Alignment.centerLeft,
       fit: BoxFit.scaleDown,
       child: Row(
         children: [

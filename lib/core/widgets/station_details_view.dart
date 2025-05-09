@@ -1,17 +1,21 @@
 import 'package:ev_charging/constants.dart';
+import 'package:ev_charging/core/entities/station_entity.dart';
 import 'package:ev_charging/core/utils/app_router.dart';
-import 'package:ev_charging/features/favourite/presentation/views/widgets/station_details_view_body.dart';
+import 'package:ev_charging/core/widgets/station_details_view_body.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class StationDetailsView extends StatelessWidget {
-  const StationDetailsView({super.key});
-
+  const StationDetailsView({super.key, required this.station});
+  final StationEntity station;
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      bottomNavigationBar: CustomBottomAppBar(),
-      body: SafeArea(child: StationDetailsViewBody()),
+    return Scaffold(
+      bottomNavigationBar: const CustomBottomAppBar(),
+      body: SafeArea(
+          child: StationDetailsViewBody(
+        station: station,
+      )),
     );
   }
 }

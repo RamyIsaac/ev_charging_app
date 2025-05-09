@@ -7,18 +7,20 @@ part 'stations_state.dart';
 
 class StationsCubit extends Cubit<StationsState> {
   final StationsRepo stationsRepo;
+  int stationsLength = 0;
   StationsCubit(this.stationsRepo) : super(StationsInitial());
 
   Future<void> getStations() async {
     emit(StationsLoading());
     var result = await stationsRepo.getStations();
     result.fold(
-      (failure) => emit(
-        StationsFailure(failure.errMessage),
-      ),
-      (stations) => emit(
+        (failure) => emit(
+              StationsFailure(failure.errMessage),
+            ), (stations) {
+      stationsLength = stations.length;
+      emit(
         StationsSuccess(stations),
-      ),
-    );
+      );
+    });
   }
 }

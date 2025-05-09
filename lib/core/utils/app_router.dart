@@ -1,3 +1,5 @@
+import 'package:ev_charging/core/entities/station_entity.dart';
+import 'package:ev_charging/core/widgets/station_details_view_body.dart';
 import 'package:ev_charging/features/auth/presentation/views/sign_in_view.dart';
 import 'package:ev_charging/features/auth/presentation/views/sign_up_view.dart';
 import 'package:ev_charging/features/enRoute/presentation/views/en_route_view.dart';
@@ -99,9 +101,17 @@ abstract class AppRouter {
       ),
 
       //favourite feature views
+      // GoRoute(
+      //     path: kStationDetailsView,
+
+      //     builder: (context, state) => const StationDetailsView()),
       GoRoute(
-          path: kStationDetailsView,
-          builder: (context, state) => const StationDetailsView()),
+        path: kStationDetailsView,
+        builder: (context, state) {
+          final station = state.extra as StationEntity;
+          return StationDetailsView(station: station);
+        },
+      ),
 
       GoRoute(
           path: kBookingDetailsView,
