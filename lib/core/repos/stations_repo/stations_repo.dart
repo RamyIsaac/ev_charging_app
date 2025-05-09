@@ -4,4 +4,5 @@ import 'package:ev_charging/core/errors/failures.dart';
 
 abstract class StationsRepo {
   Future<Either<Failure, List<StationEntity>>> getStations();
+  Future<Either<Failure, List<StationEntity>>> getNearestStations();
 }

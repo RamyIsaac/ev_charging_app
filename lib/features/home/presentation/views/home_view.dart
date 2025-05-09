@@ -1,7 +1,9 @@
 import 'package:ev_charging/constants.dart';
+import 'package:ev_charging/core/cubits/cubit/stations_cubit.dart';
+import 'package:ev_charging/core/repos/stations_repo/stations_repo.dart';
+import 'package:ev_charging/core/services/get_it_service.dart';
 import 'package:ev_charging/features/enRoute/presentation/views/en_route_view.dart';
 import 'package:ev_charging/features/favourite/presentation/views/favourite_view.dart';
-import 'package:ev_charging/features/home/presentation/manager/cubit/charging_station_cubit.dart';
 import 'package:ev_charging/features/home/presentation/views/widgets/home_view_body.dart';
 import 'package:ev_charging/features/profile/presentation/views/profile_view.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +29,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ChargingStationCubit()..getChargingStations(),
+      create: (context) => StationsCubit(getIt.get<StationsRepo>()),
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         body: SafeArea(

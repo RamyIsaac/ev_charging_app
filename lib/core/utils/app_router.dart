@@ -4,7 +4,7 @@ import 'package:ev_charging/features/enRoute/presentation/views/en_route_view.da
 import 'package:ev_charging/features/on_boarding/presentation/views/on_boarding_view.dart';
 import 'package:ev_charging/features/payment/presentation/views/book_slot_view.dart';
 import 'package:ev_charging/features/favourite/presentation/views/favourite_view.dart';
-import 'package:ev_charging/features/favourite/presentation/views/station_details_view.dart';
+import 'package:ev_charging/core/widgets/station_details_view.dart';
 import 'package:ev_charging/features/home/presentation/views/home_view.dart';
 import 'package:ev_charging/features/payment/presentation/views/make_payment_view.dart';
 import 'package:ev_charging/features/profile/presentation/views/edit_profile_view.dart';

@@ -7,7 +7,7 @@ class ReviewEntity {
 
   ReviewEntity({
     required this.reviewerName,
-    this.imageUrl,
+    this.imageUrl = '',
     required this.rating,
     required this.dateTime,
     required this.comment,

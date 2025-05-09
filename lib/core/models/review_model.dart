@@ -28,10 +28,20 @@ class ReviewModel {
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
     return ReviewModel(
       reviewerName: json['name'],
-      imageUrl: json['imageUrl'],
+      imageUrl: json['imageUrl'] ?? '',
       rating: json['rating'],
       date: DateTime.parse(json['date']),
       comment: json['comment'],
+    );
+  }
+
+  ReviewEntity toEntity() {
+    return ReviewEntity(
+      reviewerName: reviewerName,
+      imageUrl: imageUrl,
+      rating: rating,
+      dateTime: date,
+      comment: comment,
     );
   }
 

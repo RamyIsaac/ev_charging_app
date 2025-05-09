@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:ev_charging/core/entities/station_entity.dart';
 import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/widgets/charging_station.dart';
 import 'package:ev_charging/features/home/data/models/charging_station_model/charging_station_model.dart';
@@ -31,20 +34,20 @@ class StationsListView extends StatelessWidget {
                 GoRouter.of(context).push(AppRouter.kStationDetailsView);
               },
               child: ChargingStation(
-                chargingStationModel: ChargingStationModel(
+                stationEntity: StationEntity(
                   name: 'name',
                   address: 'address',
-                  city: 'city',
-                  state: 'state',
-                  zipCode: 'zipCode',
                   imageUrl: 'imageUrl',
                   longitude: 0.0,
                   latitude: 0.0,
                   isActive: true,
                   rating: '5',
                   availableConnectors: 8,
-                  operatingHours: '24/7',
-                  createdAt: TimeOfDay.now().toString(),
+                  price: 0,
+                  code: '',
+                  isFeatured: false,
+                  reviews: [],
+                  chargingType: [],
                 ),
               ));
         });

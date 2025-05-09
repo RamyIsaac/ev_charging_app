@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:ev_charging/core/entities/charging_types_entity.dart';
 import 'package:ev_charging/core/entities/review_entity.dart';
 
@@ -8,14 +6,14 @@ class StationEntity {
   final num price;
   final String address;
   String? imageUrl;
-  final File image;
+  final String availability;
   final String code;
   final bool isFeatured;
   final double latitude;
   final double longitude;
   final int availableConnectors;
   bool? isAvailable;
-  num rating = 0;
+  String rating;
   bool? isActive;
   final List<ReviewEntity> reviews;
   final List<ChargingTypesEntity> chargingType;
@@ -25,12 +23,12 @@ class StationEntity {
     required this.price,
     required this.address,
     this.imageUrl,
-    required this.image,
     required this.code,
     required this.isFeatured,
     required this.latitude,
     required this.longitude,
     required this.availableConnectors,
+    this.availability = '24/7',
     //  required this.chargingType,
     this.isActive,
     this.isAvailable,

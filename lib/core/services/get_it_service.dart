@@ -1,3 +1,5 @@
+import 'package:ev_charging/core/repos/stations_repo/stations_repo.dart';
+import 'package:ev_charging/core/repos/stations_repo/stations_repo_impl.dart';
 import 'package:ev_charging/core/services/database_service.dart';
 import 'package:ev_charging/core/services/firestore_service.dart';
 import 'package:ev_charging/core/services/firebase_auth_service.dart';
@@ -10,6 +12,9 @@ final getIt = GetIt.instance;
 void setupGetIt() {
   getIt.registerSingleton<FirebaseAuthService>(FirebaseAuthService());
   getIt.registerSingleton<DatabaseService>(FirestoreService());
+  getIt.registerSingleton<StationsRepo>(StationsRepoImpl(
+    getIt<DatabaseService>(),
+  ));
   getIt.registerSingleton<AuthRepo>(
     AuthRepoImpl(
       firebaseAuthService: getIt<FirebaseAuthService>(),

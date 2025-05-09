@@ -1,11 +1,12 @@
 import 'package:ev_charging/constants.dart';
+import 'package:ev_charging/core/entities/station_entity.dart';
 import 'package:ev_charging/features/home/data/models/charging_station_model/charging_station_model.dart';
 import 'package:flutter/material.dart';
 
 class ChargingStation extends StatelessWidget {
-  final ChargingStationModel chargingStationModel;
+  final StationEntity stationEntity;
 
-  const ChargingStation({super.key, required this.chargingStationModel});
+  const ChargingStation({super.key, required this.stationEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,7 @@ class ChargingStation extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        chargingStationModel.name,
+                        stationEntity.name,
                         style: TextStyle(
                             fontSize: screenWidth * 0.045,
                             fontWeight: FontWeight.bold),
@@ -49,7 +50,7 @@ class ChargingStation extends StatelessWidget {
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
-                        chargingStationModel.address,
+                        stationEntity.address,
                         style: TextStyle(
                             color: Colors.grey[600],
                             fontSize: screenWidth * 0.035),
@@ -58,10 +59,11 @@ class ChargingStation extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       StationTimeDistanceRating(
-                          availability: chargingStationModel.operatingHours,
+                          availability: stationEntity.code,
                           screenWidth: screenWidth,
-                          distance: chargingStationModel.id.toDouble(),
-                          rating: chargingStationModel.rating),
+                          distance:
+                              stationEntity.availableConnectors.toDouble(),
+                          rating: stationEntity.rating),
                       const SizedBox(height: 4),
                     ],
                   ),
@@ -75,13 +77,13 @@ class ChargingStation extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Connection: ${chargingStationModel.availableConnectors}",
+                      "Connection: ${stationEntity.chargingType}",
                       style: TextStyle(
                           fontSize: screenWidth * 0.035,
                           fontWeight: FontWeight.w500),
                     ),
                     Text(
-                      "${chargingStationModel.availableConnectors} points",
+                      "${stationEntity.availableConnectors} points",
                       style: TextStyle(
                           fontSize: screenWidth * 0.035, color: Colors.blue),
                     ),

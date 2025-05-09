@@ -1,6 +1,5 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:ev_charging/constants.dart';
-import 'package:ev_charging/core/services/shared_preferences_singleton.dart';
 import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/widgets/custom_button.dart';
 import 'package:ev_charging/features/on_boarding/presentation/views/widgets/on_boarding_page_view.dart';
