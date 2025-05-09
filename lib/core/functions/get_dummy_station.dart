@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:ev_charging/core/entities/station_entity.dart';
 
 StationEntity getDummyStations() => StationEntity(

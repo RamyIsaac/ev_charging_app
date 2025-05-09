@@ -11,7 +11,7 @@ import 'package:skeletonizer/skeletonizer.dart';
 class CustomStationListViewBloc extends StatefulWidget {
   const CustomStationListViewBloc({
     super.key,
-    this.scrollDirection = Axis.horizontal,
+    required this.scrollDirection,
   });
   final Axis scrollDirection;
 
@@ -33,6 +33,7 @@ class _CustomStationListViewBlocState extends State<CustomStationListViewBloc> {
       builder: (context, state) {
         if (state is StationsSuccess) {
           return StationsListView(
+            scrollDirection: widget.scrollDirection,
             stations: state.stations,
           );
         } else if (state is StationsFailure) {
@@ -43,6 +44,7 @@ class _CustomStationListViewBlocState extends State<CustomStationListViewBloc> {
           return Skeletonizer(
             enabled: true,
             child: StationsListView(
+              scrollDirection: Axis.vertical,
               stations: getDummyStationsList(),
             ),
           );
@@ -56,7 +58,7 @@ class StationsListView extends StatelessWidget {
   const StationsListView({
     super.key,
     required this.stations,
-    this.scrollDirection = Axis.horizontal,
+    required this.scrollDirection,
   });
   final Axis scrollDirection;
   final List<StationEntity> stations;

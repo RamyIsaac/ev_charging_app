@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 class CustomStationsListView extends StatelessWidget {
   const CustomStationsListView({
     super.key,
+    required this.scrollDirection,
   });
-
+  final Axis scrollDirection;
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -17,7 +18,9 @@ class CustomStationsListView extends StatelessWidget {
       child: SizedBox(
         height:
             MediaQuery.of(context).size.height * 0.3, // Ensure a defined height
-        child: const CustomStationListViewBloc(),
+        child: CustomStationListViewBloc(
+          scrollDirection: scrollDirection,
+        ),
       ),
     );
   }

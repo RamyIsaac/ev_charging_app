@@ -33,7 +33,7 @@ class StationModel {
     this.isAvailable,
     this.rating = '4',
     this.availability = '24/7',
-    this.reviews,
+    this.reviews = const [],
   });
 
   factory StationModel.fromJson(Map<String, dynamic> json) {

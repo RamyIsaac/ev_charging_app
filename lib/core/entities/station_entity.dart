@@ -15,7 +15,7 @@ class StationEntity {
   bool? isAvailable;
   String rating;
   bool? isActive;
-  final List<ReviewEntity> reviews;
+  final List<ReviewEntity>? reviews;
   final List<ChargingTypesEntity> chargingType;
 
   StationEntity({

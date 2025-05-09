@@ -6,7 +6,9 @@ class FavouriteViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const StationsListView(scrollDirection: Axis.vertical);
+    return const StationsListView(
+      scrollDirection: Axis.vertical,
+    );
   }
 }
 
@@ -19,8 +21,8 @@ class StationsListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CustomStationListViewBloc(
-      scrollDirection: Axis.vertical,
+    return CustomStationListViewBloc(
+      scrollDirection: scrollDirection,
     );
   }
 }

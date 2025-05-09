@@ -140,7 +140,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             ],
           ),
         ),
-        const CustomStationsListView(),
+        const CustomStationsListView(
+          scrollDirection: Axis.horizontal,
+        ),
       ],
     );
   }
