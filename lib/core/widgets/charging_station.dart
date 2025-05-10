@@ -18,8 +18,7 @@ class ChargingStation extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          // Wrap everything inside a Column to avoid overflow
-          mainAxisSize: MainAxisSize.min, // Let it size itself dynamically
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,14 +27,12 @@ class ChargingStation extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                   child: Image(
                     image: const AssetImage('assets/images/charging_cars.webp'),
-                    width: screenWidth * 0.22, // Responsive width
-                    height: screenWidth * 0.22, // Responsive height
+                    width: screenWidth * 0.22,
+                    height: screenWidth * 0.22,
                     fit: BoxFit.cover,
                   ),
                 ),
                 const SizedBox(width: 10),
-
-                // Expanded to prevent overflow
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +55,7 @@ class ChargingStation extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       StationTimeDistanceRating(
-                          availability: stationEntity.code,
+                          availability: stationEntity.availability,
                           screenWidth: screenWidth,
                           distance:
                               stationEntity.availableConnectors.toDouble(),
@@ -75,11 +72,13 @@ class ChargingStation extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Connection: ${stationEntity.chargingType}",
-                      style: TextStyle(
-                          fontSize: screenWidth * 0.035,
-                          fontWeight: FontWeight.w500),
+                    SizedBox(
+                      child: Text(
+                        "Types: ${stationEntity.chargingType.expand((ct) => ct.chargingTypes).join(', ')}",
+                        style: TextStyle(
+                            fontSize: screenWidth * 0.0325,
+                            fontWeight: FontWeight.w500),
+                      ),
                     ),
                     Text(
                       "${stationEntity.availableConnectors} points",
