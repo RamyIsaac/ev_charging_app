@@ -6,6 +6,7 @@ class CustomDropdown extends StatelessWidget {
   final List<String> items;
   final String? selectedValue;
   final void Function(String?) onChanged;
+  final String? Function(String?)? validator;
 
   const CustomDropdown({
     super.key,
@@ -13,29 +14,32 @@ class CustomDropdown extends StatelessWidget {
     required this.items,
     required this.selectedValue,
     required this.onChanged,
+    this.validator,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 50,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      margin: const EdgeInsets.only(bottom: 16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.grey.shade300),
+    return DropdownButtonFormField<String>(
+      value: selectedValue,
+      validator: validator,
+      decoration: InputDecoration(
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
+        hintText: hintText,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.grey.shade300),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(12),
+          borderSide: BorderSide(color: Colors.grey.shade300),
+        ),
+        errorStyle: const TextStyle(color: Colors.red),
       ),
-      child: DropdownButtonFormField<String>(
-        iconEnabledColor: kSecondaryColor,
-        autovalidateMode: AutovalidateMode.always,
-        value: selectedValue,
-        decoration: InputDecoration.collapsed(hintText: hintText),
-        items: items
-            .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-            .toList(),
-        onChanged: onChanged,
-        borderRadius: BorderRadius.circular(12),
-      ),
+      iconEnabledColor: kSecondaryColor,
+      items:
+          items.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
+      onChanged: onChanged,
     );
   }
 }

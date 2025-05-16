@@ -6,6 +6,7 @@ class CustomPriceInput extends StatelessWidget {
   final bool isFullCharge;
   final void Function(int) onChanged;
   final void Function(bool) onFullChargeToggle;
+  final String? Function(int?)? validator;
 
   const CustomPriceInput({
     super.key,
@@ -13,9 +14,10 @@ class CustomPriceInput extends StatelessWidget {
     required this.isFullCharge,
     required this.onChanged,
     required this.onFullChargeToggle,
+    this.validator,
   });
 
-  void _showPriceModal(BuildContext context) {
+  void _showPriceModal(BuildContext context, void Function(int) onChanged) {
     showModalBottomSheet(
       context: context,
       shape: const RoundedRectangleBorder(
@@ -32,26 +34,49 @@ class CustomPriceInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final displayText =
-        isFullCharge ? 'Full Charge' : 'EGP ${value?.toString() ?? ''}';
+    return FormField<int>(
+      validator: validator,
+      builder: (field) {
+        final displayText =
+            isFullCharge ? 'Full Charge' : 'EGP ${value?.toString() ?? ''}';
 
-    return GestureDetector(
-      onTap: () => _showPriceModal(context),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
-        margin: const EdgeInsets.only(bottom: 16),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(color: Colors.grey.shade300),
-        ),
-        child: Text(
-          displayText,
-          style: TextStyle(
-            color: value != null || isFullCharge ? Colors.black : Colors.grey,
-          ),
-        ),
-      ),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            GestureDetector(
+              onTap: () => _showPriceModal(context, (val) {
+                onChanged(val);
+                field.didChange(val); // Update form state
+              }),
+              child: Container(
+                width: double.infinity,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
+                margin: const EdgeInsets.only(bottom: 8),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                      color:
+                          field.hasError ? Colors.red : Colors.grey.shade300),
+                ),
+                child: Text(
+                  displayText,
+                  style: TextStyle(
+                    color: value != null || isFullCharge
+                        ? Colors.black
+                        : Colors.grey,
+                  ),
+                ),
+              ),
+            ),
+            if (field.hasError)
+              Text(
+                field.errorText!,
+                style: const TextStyle(color: Colors.red, fontSize: 12),
+              ),
+          ],
+        );
+      },
     );
   }
 }
@@ -63,12 +88,11 @@ class _PriceSelectorBottomSheet extends StatefulWidget {
   final void Function(bool) onFullChargeToggle;
 
   const _PriceSelectorBottomSheet({
-    Key? key,
     required this.value,
     required this.isFullCharge,
     required this.onChanged,
     required this.onFullChargeToggle,
-  }) : super(key: key);
+  });
 
   @override
   State<_PriceSelectorBottomSheet> createState() =>
