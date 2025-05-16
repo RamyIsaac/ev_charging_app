@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:ev_charging/constants.dart';
 import 'package:ev_charging/core/cubits/cubit/stations_cubit.dart';
-import 'package:ev_charging/core/models/station_model.dart';
 import 'package:ev_charging/core/services/location_service.dart';
 import 'package:ev_charging/core/services/map_service.dart';
 import 'package:ev_charging/core/services/routes_service.dart';

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ev_charging/core/models/booking_data_model.dart';
 import 'package:ev_charging/core/utils/styles.dart';
 import 'package:ev_charging/core/widgets/custom_button.dart';
 import 'package:ev_charging/core/widgets/custom_date_picker.dart';
@@ -33,13 +34,24 @@ class _BookSlotViewBodyState extends State<BookSlotViewBody> {
   bool isFullCharge = false;
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
+      final BookingDataModel bookingDataModel = BookingDataModel(
+        vehicleType: vehicleType!,
+        vehicleModel: vehicleModel!,
+        connectionType: connectionType!,
+        date: selectedDate!,
+        time: selectedTime!,
+        price: price!,
+        isFullCharge: isFullCharge,
+      );
       // Proceed with booking
       showModalBottomSheet(
           context: context,
           builder: (context) {
             return BlocProvider(
               create: (context) => StripePaymentCubit(PaymentRepoImpl()),
-              child: const PaymentMethodsBottomSheet(),
+              child: PaymentMethodsBottomSheet(
+                bookingDataModel: bookingDataModel,
+              ),
             );
           });
     } else {

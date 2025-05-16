@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:ev_charging/core/models/booking_data_model.dart';
 import 'package:ev_charging/core/services/paymob_service.dart';
 import 'package:ev_charging/core/utils/api_keys.dart';
 import 'package:ev_charging/core/utils/app_router.dart';
@@ -18,8 +19,8 @@ import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
 import 'package:go_router/go_router.dart';
 
 class PaymentMethodsBottomSheet extends StatelessWidget {
-  const PaymentMethodsBottomSheet({super.key});
-
+  const PaymentMethodsBottomSheet({super.key, required this.bookingDataModel});
+  final BookingDataModel bookingDataModel;
   @override
   Widget build(BuildContext context) {
     return Padding(
