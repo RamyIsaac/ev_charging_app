@@ -1,5 +1,6 @@
 import 'package:ev_charging/core/services/paymob_service.dart';
 import 'package:ev_charging/core/services/shared_preferences_singleton.dart';
+import 'package:ev_charging/core/utils/api_keys.dart';
 import 'package:ev_charging/core/utils/app_router.dart';
 import 'package:ev_charging/core/utils/custom_bloc_observer.dart';
 import 'package:ev_charging/core/services/get_it_service.dart';
@@ -8,6 +9,7 @@ import 'package:ev_charging/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +17,7 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   Bloc.observer = CustomBlocObserver();
-  // Stripe.publishableKey = ApiKeys.publishableKey;
+  Stripe.publishableKey = ApiKeys.publishableKey;
   await PaymobService.initPaymob();
   setupGetIt();
   await SharedPreferencesSingleton.init();

@@ -1,11 +1,28 @@
 import 'package:ev_charging/constants.dart';
 import 'package:ev_charging/core/entities/station_entity.dart';
+import 'package:ev_charging/core/services/location_service.dart';
+import 'package:ev_charging/core/services/routes_service.dart';
+import 'package:ev_charging/features/home/data/models/location_info/lat_lng.dart';
+import 'package:ev_charging/features/home/data/models/location_info/location.dart';
+import 'package:ev_charging/features/home/data/models/location_info/location_info.dart';
+//import 'package:ev_charging/features/home/data/models/routes_model/polyline.dart';
+
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class ChargingStation extends StatelessWidget {
   final StationEntity stationEntity;
 
-  const ChargingStation({super.key, required this.stationEntity});
+  final LocationService locationService;
+  final RoutesService routeService;
+  final Function(Set<Polyline>) onRouteUpdated;
+
+  const ChargingStation(
+      {super.key,
+      required this.stationEntity,
+      required this.locationService,
+      required this.routeService,
+      required this.onRouteUpdated});
 
   @override
   Widget build(BuildContext context) {
@@ -88,26 +105,109 @@ class ChargingStation extends StatelessWidget {
                   ],
                 ),
                 const Spacer(),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kSecondaryColor,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
-                    padding: EdgeInsets.symmetric(
-                        vertical: screenWidth * 0.025,
-                        horizontal: screenWidth * 0.05),
-                  ),
-                  child: Text("Get direction",
-                      style: TextStyle(
-                          color: Colors.white, fontSize: screenWidth * 0.035)),
-                ),
+                getDirectionButton(screenWidth),
               ],
             ),
           ],
         ),
       ),
     );
+  }
+
+  ElevatedButton getDirectionButton(double screenWidth) {
+    return ElevatedButton(
+      onPressed: () async {
+        try {
+          final currentPosition = await locationService.getLocation();
+
+          final directions = await routeService.fetchRoutes(
+            origin: LocationInfoModel(
+              location: LocationModel(
+                latLng: LatLngModel(
+                  latitude: currentPosition.latitude,
+                  longitude: currentPosition.longitude,
+                ),
+              ),
+            ),
+            destination: LocationInfoModel(
+              location: LocationModel(
+                latLng: LatLngModel(
+                  latitude: stationEntity.latitude,
+                  longitude: stationEntity.longitude,
+                ),
+              ),
+            ),
+          );
+
+          final encodedPolyline =
+              directions.routes?.first.polyline?.encodedPolyline;
+
+          if (encodedPolyline != null) {
+            List<LatLng> polylineCoordinates = _decodePolyline(encodedPolyline);
+
+            Set<Polyline> polylines = {
+              Polyline(
+                polylineId: const PolylineId('route'),
+                points: polylineCoordinates,
+                color: kSecondaryColor,
+                width: 5,
+              ),
+            };
+
+            onRouteUpdated(polylines);
+          } else {
+            print('No polyline data found in the route');
+          }
+        } catch (e) {
+          print('Error: $e');
+        }
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: kSecondaryColor,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+        padding: EdgeInsets.symmetric(
+            vertical: screenWidth * 0.025, horizontal: screenWidth * 0.05),
+      ),
+      child: Text("Get direction",
+          style: TextStyle(color: Colors.white, fontSize: screenWidth * 0.035)),
+    );
+  }
+
+  List<LatLng> _decodePolyline(String encoded) {
+    List<LatLng> polyline = [];
+    int index = 0;
+    int len = encoded.length;
+    int lat = 0;
+    int lng = 0;
+
+    while (index < len) {
+      int b;
+      int shift = 0;
+      int result = 0;
+      do {
+        b = encoded.codeUnitAt(index) - 63;
+        index++;
+        result |= (b & 0x1f) << shift;
+        shift += 5;
+      } while (b >= 0x20);
+      int dlat = (result & 0x1) != 0 ? ~(result >> 1) : (result >> 1);
+      lat += dlat;
+
+      shift = 0;
+      result = 0;
+      do {
+        b = encoded.codeUnitAt(index) - 63;
+        index++;
+        result |= (b & 0x1f) << shift;
+        shift += 5;
+      } while (b >= 0x20);
+      int dlng = (result & 0x1) != 0 ? ~(result >> 1) : (result >> 1);
+      lng += dlng;
+
+      polyline.add(LatLng(lat / 1E5, lng / 1E5));
+    }
+
+    return polyline;
   }
 }
 

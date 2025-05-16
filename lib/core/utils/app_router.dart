@@ -1,4 +1,6 @@
 import 'package:ev_charging/core/entities/station_entity.dart';
+import 'package:ev_charging/core/services/location_service.dart';
+import 'package:ev_charging/core/services/routes_service.dart';
 import 'package:ev_charging/features/auth/presentation/views/sign_in_view.dart';
 import 'package:ev_charging/features/auth/presentation/views/sign_up_view.dart';
 import 'package:ev_charging/features/enRoute/presentation/views/en_route_view.dart';
@@ -15,6 +17,7 @@ import 'package:ev_charging/features/profile/presentation/views/privacy_policy_v
 import 'package:ev_charging/features/profile/presentation/views/profile_view.dart';
 import 'package:ev_charging/features/profile/presentation/views/terms_and_conditions_view.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 abstract class AppRouter {
   static const kOnBoardingView = '/';
@@ -99,18 +102,34 @@ abstract class AppRouter {
         builder: (context, state) => const PrivacyPolicyView(),
       ),
 
-      //favourite feature views
-      // GoRoute(
-      //     path: kStationDetailsView,
-
-      //     builder: (context, state) => const StationDetailsView()),
+      // favourite feature views
       GoRoute(
-        path: kStationDetailsView,
+        path: AppRouter.kStationDetailsView,
         builder: (context, state) {
-          final station = state.extra as StationEntity;
-          return StationDetailsView(station: station);
+          final extra = state.extra as Map<String, dynamic>;
+
+          final station = extra['station'] as StationEntity;
+          final locationService = extra['locationService'] as LocationService;
+          final routeService = extra['routeService'] as RoutesService;
+          final onRouteUpdated =
+              extra['onRouteUpdated'] as Function(Set<Polyline>);
+
+          return StationDetailsView(
+            station: station,
+            locationService: locationService,
+            routeService: routeService,
+            onRouteUpdated: onRouteUpdated,
+          );
         },
       ),
+
+      // GoRoute(
+      //   path: kStationDetailsView,
+      //   builder: (context, state) {
+      //     final station = state.extra as StationEntity;
+      //     return StationDetailsView(station: station);
+      //   },
+      // ),
 
       GoRoute(
           path: kBookingDetailsView,

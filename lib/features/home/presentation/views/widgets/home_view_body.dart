@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:ev_charging/constants.dart';
 import 'package:ev_charging/core/cubits/cubit/stations_cubit.dart';
+import 'package:ev_charging/core/models/station_model.dart';
 import 'package:ev_charging/core/services/location_service.dart';
 import 'package:ev_charging/core/services/map_service.dart';
+import 'package:ev_charging/core/services/routes_service.dart';
 import 'package:ev_charging/features/home/data/models/place_autocomplete_model/place_autocomplete_model.dart';
 import 'package:ev_charging/features/home/presentation/views/widgets/custom_home_app_bar.dart';
 import 'package:ev_charging/features/home/presentation/views/widgets/custom_home_map.dart';
@@ -37,7 +39,8 @@ class _HomeViewBodyState extends State<HomeViewBody> {
   Set<Marker> markers = {};
   Set<Polyline> polylines = {};
   late GoogleMapController googleMapController;
-
+  late LocationService locationService;
+  late RoutesService routeService;
   Timer? debounce;
 
   @override
@@ -56,6 +59,9 @@ class _HomeViewBodyState extends State<HomeViewBody> {
     fetchPredections();
     super.initState();
     context.read<StationsCubit>().getStations();
+
+    locationService = LocationService();
+    routeService = RoutesService();
   }
 
   @override
@@ -110,8 +116,10 @@ class _HomeViewBodyState extends State<HomeViewBody> {
                               sessionToken = null;
                               setState(() {});
                               destinationPlace = LatLng(
-                                  placeDetailsModel.geometry!.location!.lat!,
-                                  placeDetailsModel.geometry!.location!.lng!);
+                                placeDetailsModel.geometry!.location!.lat!,
+                                placeDetailsModel.geometry!.location!.lng!,
+                              );
+
                               var points = await mapService.getRouteData(
                                   googleMapController: googleMapController,
                                   destinationPlace: destinationPlace);
@@ -140,8 +148,15 @@ class _HomeViewBodyState extends State<HomeViewBody> {
             ],
           ),
         ),
-        const CustomStationsListView(
+        CustomStationsListView(
           scrollDirection: Axis.horizontal,
+          locationService: locationService,
+          routeService: routeService,
+          onRouteUpdated: (Set<Polyline> updatedPolylines) {
+            setState(() {
+              polylines = updatedPolylines;
+            });
+          },
         ),
       ],
     );
