@@ -6,7 +6,7 @@ class BookingDataModel {
   final String connectionType;
   final DateTime date;
   final TimeOfDay time;
-  final int? price;
+  final int price;
   final bool isFullCharge;
 
   BookingDataModel({

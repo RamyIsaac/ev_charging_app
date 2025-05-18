@@ -42,7 +42,7 @@ class PaymentMethodsBottomSheet extends StatelessWidget {
           BlocConsumer<StripePaymentCubit, StripePaymentState>(
             listener: (context, state) {
               if (state is StripePaymentSuccess) {
-                GoRouter.of(context).push(AppRouter.kMakePaymentView);
+                GoRouter.of(context).push(AppRouter.kThankYouView);
               }
               if (state is StripePaymentFailure) {
                 Navigator.pop(context);
@@ -60,7 +60,7 @@ class PaymentMethodsBottomSheet extends StatelessWidget {
                     PaymentIntentInputModel paymentIntentInputModel =
                         PaymentIntentInputModel(
                       customerId: 'cus_S6L7yZeYsGAI9m',
-                      amount: 100,
+                      amount: bookingDataModel.price,
                       currency: 'usd',
                     );
                     BlocProvider.of<StripePaymentCubit>(context)
@@ -70,7 +70,7 @@ class PaymentMethodsBottomSheet extends StatelessWidget {
                     var transactionsData = getTransactions();
                     executePaypalPayment(context, transactionsData);
                   } else {
-                    await PaymobService.payWithCard(context);
+                    await PaymobService.payWithCard(context, bookingDataModel);
                   }
                 },
               );

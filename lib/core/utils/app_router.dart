@@ -9,7 +9,7 @@ import 'package:ev_charging/features/payment/presentation/views/book_slot_view.d
 import 'package:ev_charging/features/favourite/presentation/views/favourite_view.dart';
 import 'package:ev_charging/core/widgets/station_details_view.dart';
 import 'package:ev_charging/features/home/presentation/views/home_view.dart';
-import 'package:ev_charging/features/payment/presentation/views/make_payment_view.dart';
+import 'package:ev_charging/features/payment/presentation/views/thank_you_view.dart';
 import 'package:ev_charging/features/profile/presentation/views/edit_profile_view.dart';
 import 'package:ev_charging/features/profile/presentation/views/faqs_view.dart';
 import 'package:ev_charging/features/profile/presentation/views/my_booking_view.dart';
@@ -45,8 +45,8 @@ abstract class AppRouter {
       '/favouriteView/stationDetailsView/bookingDetailsView';
 
   //Payment feature views
-  static const kMakePaymentView =
-      '/favouriteView/stationDetailsView/bookingDetailsView/makePaymentView';
+  static const kThankYouView =
+      '/favouriteView/stationDetailsView/bookingDetailsView/thankYouView';
 
   static final router = GoRouter(
     routes: [
@@ -137,8 +137,8 @@ abstract class AppRouter {
 
       //payment feature views
       GoRoute(
-          path: kMakePaymentView,
-          builder: (context, state) => const MakePaymentView()),
+          path: kThankYouView,
+          builder: (context, state) => const ThankYouView()),
 //on_boarding feature views
       GoRoute(
           path: kOnBoardingView,

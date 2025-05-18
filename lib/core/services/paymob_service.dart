@@ -1,3 +1,4 @@
+import 'package:ev_charging/core/models/booking_data_model.dart';
 import 'package:ev_charging/core/utils/api_keys.dart';
 import 'package:ev_charging/core/widgets/show_snack_bar.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +19,12 @@ abstract class PaymobService {
     }
   }
 
-  static Future<void> payWithCard(BuildContext context) async {
+  static Future<void> payWithCard(
+      BuildContext context, BookingDataModel bookingDataModel) async {
     var outerResponse = await FlutterPaymob.instance.payWithCard(
       context: context,
       currency: "EGP",
-      amount: 100,
+      amount: bookingDataModel.price.toDouble(),
       onPayment: (response) {
         //the successful payment is reversed ... if not true mean success otherwise failed
         if (!response.success == true) {
