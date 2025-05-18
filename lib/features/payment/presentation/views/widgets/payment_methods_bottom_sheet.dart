@@ -1,9 +1,10 @@
 import 'dart:developer';
 
+import 'package:ev_charging/constants.dart';
 import 'package:ev_charging/core/models/booking_data_model.dart';
 import 'package:ev_charging/core/services/paymob_service.dart';
 import 'package:ev_charging/core/utils/api_keys.dart';
-import 'package:ev_charging/core/utils/app_router.dart';
+
 import 'package:ev_charging/core/utils/styles.dart';
 import 'package:ev_charging/core/widgets/custom_button.dart';
 import 'package:ev_charging/features/payment/data/models/amount_paypal_model/amount_paypal_model.dart';
@@ -16,7 +17,6 @@ import 'package:ev_charging/features/payment/presentation/views/widgets/payment_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_paypal_payment/flutter_paypal_payment.dart';
-import 'package:go_router/go_router.dart';
 
 class PaymentMethodsBottomSheet extends StatelessWidget {
   const PaymentMethodsBottomSheet({super.key, required this.bookingDataModel});
@@ -42,7 +42,35 @@ class PaymentMethodsBottomSheet extends StatelessWidget {
           BlocConsumer<StripePaymentCubit, StripePaymentState>(
             listener: (context, state) {
               if (state is StripePaymentSuccess) {
-                GoRouter.of(context).push(AppRouter.kThankYouView);
+                // GoRouter.of(context).push(AppRouter.kThankYouView);
+                showDialog(
+                  context: context,
+                  builder: (_) => AlertDialog(
+                    title: const Row(
+                      children: [
+                        Icon(Icons.check_circle, color: Colors.green),
+                        SizedBox(width: 8),
+                        Text('Success'),
+                      ],
+                    ),
+                    content: const Text(
+                        'Your payment was successful and the slot is booked.'),
+                    actions: [
+                      Center(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: kSecondaryColor,
+                          ),
+                          onPressed: () => Navigator.of(context).pop(),
+                          child: const Text(
+                            'OK',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
               }
               if (state is StripePaymentFailure) {
                 Navigator.pop(context);
